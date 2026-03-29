@@ -1065,6 +1065,57 @@ function hcmv_display_hot_topics() {
 
 }
 
+add_action('wp_enqueue_scripts', 'hcmv_enqueue_dark_mode_assets', 20);
+function hcmv_enqueue_dark_mode_assets() {
+    $theme_version = wp_get_theme()->get('Version');
+
+    wp_enqueue_style(
+        'hcmv-dark-mode',
+        get_stylesheet_directory_uri() . '/assets/css/dark-mode.css',
+        array(),
+        $theme_version
+    );
+
+    wp_enqueue_script(
+        'hcmv-dark-mode',
+        get_stylesheet_directory_uri() . '/assets/js/theme-toggle.js',
+        array(),
+        $theme_version,
+        true
+    );
+}
+
+add_action('wp_head', 'hcmv_apply_saved_theme_early', 1);
+function hcmv_apply_saved_theme_early() {
+    ?>
+    <script>
+    (function () {
+        try {
+            var saved = localStorage.getItem('hcmv-theme');
+            var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var theme = saved ? saved : (systemDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+    })();
+    </script>
+    <?php
+}
+
+add_action('wp_body_open', 'hcmv_render_theme_toggle');
+function hcmv_render_theme_toggle() {
+    ?>
+    <button
+        id="hcmv-theme-toggle"
+        class="hcmv-theme-toggle"
+        type="button"
+        aria-label="Toggle theme"
+        aria-pressed="false"
+    >
+        <span class="hcmv-theme-toggle__icon" aria-hidden="true">&#127769;</span>
+        <span class="hcmv-theme-toggle__text">Dark mode</span>
+    </button>
+    <?php
+}
 
 // TUYEN- chỉnh comments: đổi label nút "Post Comment" sang "Bình luận"
 add_filter('gettext', function($translated, $text, $domain) {
