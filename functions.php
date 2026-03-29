@@ -1065,6 +1065,14 @@ function hcmv_display_hot_topics() {
 
 }
 
+
+// TUYEN- chỉnh comments: đổi label nút "Post Comment" sang "Bình luận"
+add_filter('gettext', function($translated, $text, $domain) {
+    if ($text === 'Post Comment') {
+        return 'Bình luận';
+    }
+    return $translated;
+}, 10, 3);
 // ── Hệ thống chuyên mục mặc định HCMV ──────────────────────────────────────
 // Tạo 4 category chuẩn cho bài viết nếu chưa tồn tại.
 // Idempotent: an toàn khi chạy lại nhiều lần, không tạo trùng.

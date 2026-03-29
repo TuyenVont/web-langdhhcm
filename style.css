@@ -1648,3 +1648,190 @@ body.hcmv-single-post-body h1.hcmv-post-title {
     max-width: 100% !important;
     grid-column: unset !important;
 }
+
+.hcmv-comments-wrap {
+    margin-top: 40px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(15, 23, 42, .08);
+}
+
+.hcmv-comments-wrap .comments-area,
+.hcmv-comments-wrap #comments,
+.hcmv-comments-wrap .wpdiscuz-container {
+    margin: 0;
+}
+
+.hcmv-comments-wrap .comment-respond,
+.hcmv-comments-wrap .wpd-form-wrapper,
+.hcmv-comments-wrap .wpd-comment-wrap,
+.hcmv-comments-wrap .wpd-comment {
+    font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.hcmv-comments-wrap input[type="text"],
+.hcmv-comments-wrap input[type="email"],
+.hcmv-comments-wrap input[type="url"],
+.hcmv-comments-wrap textarea {
+    width: 100%;
+    border: 1px solid rgba(15, 23, 42, .12);
+    border-radius: 10px;
+    padding: 12px 14px;
+    background: #fff;
+    color: #334155;
+    box-sizing: border-box;
+}
+
+.hcmv-comments-wrap textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.hcmv-comments-wrap input:focus,
+.hcmv-comments-wrap textarea:focus {
+    outline: none;
+    border-color: #2f63ea;
+    box-shadow: 0 0 0 3px rgba(47, 99, 234, .08);
+}
+
+.hcmv-comments-wrap .form-submit input,
+.hcmv-comments-wrap button,
+.hcmv-comments-wrap .wpdiscuz-button,
+.hcmv-comments-wrap input[type="submit"] {
+    border-radius: 10px;
+}
+
+.hcmv-comments-wrap .form-submit input,
+.hcmv-comments-wrap .wpdiscuz-button,
+.hcmv-comments-wrap input[type="submit"] {
+    background: #2f63ea;
+    color: #fff;
+    border: none;
+    padding: 12px 18px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.hcmv-comments-wrap .form-submit input:hover,
+.hcmv-comments-wrap .wpdiscuz-button:hover,
+.hcmv-comments-wrap input[type="submit"]:hover {
+    opacity: .92;
+}
+
+.hcmv-comments-wrap .comment-list,
+.hcmv-comments-wrap .wpd-comments {
+    margin-top: 24px;
+}
+
+.hcmv-comments-wrap .comment,
+.hcmv-comments-wrap .wpd-comment {
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(15, 23, 42, .08);
+}
+
+.hcmv-comments-wrap .comment-meta,
+.hcmv-comments-wrap .wpd-comment-date {
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.hcmv-comments-wrap .comment-content p,
+.hcmv-comments-wrap .wpd-comment-text p {
+    color: #334155;
+    line-height: 1.7;
+}
+
+@media (max-width: 760px) {
+    .hcmv-comments-wrap {
+        margin-top: 28px;
+        padding-top: 22px;
+    }
+}
+/* =========================
+   wpDiscuz - Ẩn icon góc trái
+   ========================= */
+body .wpdiscuz-widget-bubble,
+body .wpd-bubble-open,
+body .wpd-bubble-wrap,
+body .wpd-inline-open,
+body .wpdiscuz-comment-bubble,
+body .wpdiscuz-floating-button {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* =========================
+   wpDiscuz - Đổi nút sang xanh dương
+   ========================= */
+#wpdcom .wpdiscuz-button,
+#wpdcom input[type="submit"],
+#wpdcom button,
+.hcmv-comments-wrap .wpdiscuz-button,
+.hcmv-comments-wrap input[type="submit"],
+.hcmv-comments-wrap button {
+    background: #2f63ea !important;
+    border-color: #2f63ea !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+}
+
+/* Hover */
+#wpdcom .wpdiscuz-button:hover,
+#wpdcom input[type="submit"]:hover,
+#wpdcom button:hover,
+.hcmv-comments-wrap .wpdiscuz-button:hover,
+.hcmv-comments-wrap input[type="submit"]:hover,
+.hcmv-comments-wrap button:hover {
+    background: #1d4ed8 !important;
+    border-color: #1d4ed8 !important;
+    color: #ffffff !important;
+}
+
+/* Nút nhỏ khác trong comment */
+#wpdcom .wpd-comment-footer .wpd-vote-up,
+#wpdcom .wpd-comment-footer .wpd-vote-down,
+#wpdcom .wpd-comment-footer .wpd-reply-button,
+#wpdcom .wpd-comment-footer .wpd-share-button {
+    color: #2f63ea !important;
+}
+
+/* Link login / subscribe trong khu comment */
+#wpdcom a,
+.hcmv-comments-wrap a {
+    color: #2f63ea;
+}
+
+/* Nút Post Comment thật của wpDiscuz */
+#wpdcom input.wc_comm_submit,
+#wpdcom input.wpd-prim-button,
+#wpdcom input.wc_comm_submit.wpd-prim-button,
+#wpdcom input[id^="wpd-field-submit-"] {
+    background-color: #2f63ea !important;
+    background: #2f63ea !important;
+    background-image: none !important;
+    border: 1px solid #2f63ea !important;
+    color: #fff !important;
+    box-shadow: none !important;
+}
+
+/* Hover */
+#wpdcom input.wc_comm_submit:hover,
+#wpdcom input.wpd-prim-button:hover,
+#wpdcom input.wc_comm_submit.wpd-prim-button:hover,
+#wpdcom input[id^="wpd-field-submit-"]:hover {
+    background-color: #1d4ed8 !important;
+    background: #1d4ed8 !important;
+    background-image: none !important;
+    border-color: #1d4ed8 !important;
+    color: #fff !important;
+}
+
+/* Ẩn icon chat/bubble góc trái */
+body .wpdiscuz-widget-bubble,
+body .wpd-bubble-open,
+body .wpd-bubble-wrap,
+body .wpdiscuz-comment-bubble,
+body .wpdiscuz-floating-button {
+    display: none !important;
+}
