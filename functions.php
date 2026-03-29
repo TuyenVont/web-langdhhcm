@@ -1116,3 +1116,42 @@ function hcmv_render_theme_toggle() {
     </button>
     <?php
 }
+
+// TUYEN- chỉnh comments: đổi label nút "Post Comment" sang "Bình luận"
+add_filter('gettext', function($translated, $text, $domain) {
+    if ($text === 'Post Comment') {
+        return 'Bình luận';
+    }
+    return $translated;
+}, 10, 3);
+// ── Hệ thống chuyên mục mặc định HCMV ──────────────────────────────────────
+// Tạo 4 category chuẩn cho bài viết nếu chưa tồn tại.
+// Idempotent: an toàn khi chạy lại nhiều lần, không tạo trùng.
+function hcmv_register_default_categories() {
+    $categories = array(
+        array( 'name' => 'Đời sống sinh viên',           'slug' => 'doi-song-sinh-vien' ),
+        array( 'name' => 'Di chuyển & tiện ích',          'slug' => 'di-chuyen-tien-ich' ),
+        array( 'name' => 'Học tập & phát triển kỹ năng',  'slug' => 'hoc-tap-phat-trien-ky-nang' ),
+        array( 'name' => 'Việc làm & cơ hội sinh viên',   'slug' => 'viec-lam-co-hoi-sinh-vien' ),
+    );
+
+    foreach ( $categories as $cat ) {
+        if ( term_exists( $cat['slug'], 'category' ) ) {
+            continue;
+        }
+
+        $result = wp_insert_term(
+            $cat['name'],
+            'category',
+            array( 'slug' => $cat['slug'], 'parent' => 0 )
+        );
+
+        // Silent fail — không làm gián đoạn quá trình tải trang
+        if ( is_wp_error( $result ) ) {
+            continue;
+        }
+    }
+}
+add_action( 'init', 'hcmv_register_default_categories', 10 );
+
+
