@@ -1,4 +1,24 @@
+1. Tải code về máy lần đầu (Clone)
+git clone https://github.com/TuyenVont/web-langdhhcm
 
+2. Cập nhật code mới nhất (Pull)
+Trước khi bắt đầu làm việc mỗi ngày, nên chạy lệnh này để lấy những thay đổi mà người khác đã đẩy lên.
+git pull origin main
+
+3. Tạo nhánh mới để làm việc (Branching)
+Để tránh việc mọi người sửa chồng chéo lên nhau trên nhánh chính (main), mỗi người nên làm việc trên một nhánh riêng.
+# Tạo và chuyển sang nhánh mới (ví dụ: feature-header)
+git checkout -b <ten_nhanh_moi>
+
+4. Lưu và đẩy code lên GitHub (Add, Commit & Push)
+Sau khi code xong một tính năng, thực hiện bộ 3 lệnh sau:
+
+# 1. Gom tất cả các file đã thay đổi
+git add .
+# 2. Đặt tên cho lần thay đổi này (viết ngắn gọn, dễ hiểu)
+git commit -m "Mô tả tính năng vừa làm"
+# 3. Đẩy nhánh này lên GitHub
+git push origin <ten_nhanh_dang_lam>
 
 # HCMV Blocksy Child V3 Post Template (Updated 2026)
 ===================================
