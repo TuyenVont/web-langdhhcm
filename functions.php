@@ -1064,3 +1064,12 @@ function hcmv_display_hot_topics() {
     echo '</div></div>';
 
 }
+
+
+// TUYEN- chỉnh comments: đổi label nút "Post Comment" sang "Bình luận"
+add_filter('gettext', function($translated, $text, $domain) {
+    if ($text === 'Post Comment') {
+        return 'Bình luận';
+    }
+    return $translated;
+}, 10, 3);

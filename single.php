@@ -171,6 +171,13 @@ while (have_posts()) : the_post();
                                 <a class="is-zalo" href="<?php echo esc_url($share_zalo); ?>" target="_blank" rel="noopener noreferrer">Zalo</a>
                             </div>
                         </div>
+
+                        <?php // TUYEN- chỉnh comments: chèn comments_template() để wpDiscuz render khối bình luận cuối bài ?>
+                        <?php if (comments_open() || get_comments_number()) : ?>
+                        <section class="hcmv-comments-wrap">
+                            <?php comments_template(); ?>
+                        </section>
+                        <?php endif; ?>
                     </article>
 
                     <aside class="hcmv-post-sidebar">
