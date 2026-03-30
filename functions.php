@@ -1162,10 +1162,15 @@ add_action( 'init', 'hcmv_register_default_categories', 10 );
  * Tăng lượt xem bài viết
  */
 function langd_track_post_views() {
-    if (is_admin() || !is_single()) return;
+    if (is_admin() || !is_single()) {
+        return;
+    }
 
     $post_id = get_queried_object_id();
-    if (!$post_id) return;
+
+    if (!$post_id || get_post_type($post_id) !== 'post') {
+        return;
+    }
 
     $views = (int) get_post_meta($post_id, 'langd_post_views', true);
     $views++;
@@ -1179,26 +1184,50 @@ add_action('wp', 'langd_track_post_views');
  * Block: Bắt đầu từ đây
  */
 function langd_start_here_shortcode() {
-
-    $query = new WP_Query([
-        'post_type' => 'post',
-        'posts_per_page' => 6,
-        'category_name' => 'bat-dau-tu-day'
-    ]);
+    $query = new WP_Query(array(
+        'post_type'           => 'post',
+        'post_status'         => 'publish',
+        'posts_per_page'      => 4,
+        'category_name'       => 'bat-dau-tu-day',
+        'ignore_sticky_posts' => true,
+    ));
 
     ob_start();
 
     if ($query->have_posts()) {
-        echo '<h2>Bắt đầu từ đây</h2><div class="home-grid">';
+        echo '<section class="hcmv-section">';
+        echo '<div class="hcmv-container">';
+        echo '<div class="hcmv-section-head">';
+        echo '<div>';
+        echo '<h2>Bắt đầu từ đây</h2>';
+        echo '<p>Những bài viết nền tảng dành cho người mới.</p>';
+        echo '</div>';
+        echo '<a class="hcmv-btn hcmv-btn-secondary" href="' . esc_url(home_url('/category/bat-dau-tu-day/')) . '">Xem tất cả</a>';
+        echo '</div>';
+
+        echo '<div class="hcmv-post-grid">';
 
         while ($query->have_posts()) {
             $query->the_post();
-            echo '<div class="card">';
-            echo '<a href="'.get_permalink().'">'.get_the_title().'</a>';
+
+            echo '<a class="hcmv-post" href="' . esc_url(get_permalink()) . '">';
+            echo '<div class="hcmv-post-media">';
+            if (has_post_thumbnail()) {
+                echo get_the_post_thumbnail(get_the_ID(), 'medium_large');
+            }
+            echo '<span class="hcmv-tag">Bắt đầu từ đây</span>';
             echo '</div>';
+
+            echo '<div class="hcmv-post-body">';
+            echo '<h3>' . esc_html(get_the_title()) . '</h3>';
+            echo '<p>' . esc_html(wp_trim_words(get_the_excerpt(), 18, '...')) . '</p>';
+            echo '</div>';
+            echo '</a>';
         }
 
         echo '</div>';
+        echo '</div>';
+        echo '</section>';
     }
 
     wp_reset_postdata();
@@ -1206,33 +1235,57 @@ function langd_start_here_shortcode() {
 }
 add_shortcode('start_here', 'langd_start_here_shortcode');
 
-
 /**
  * Block: Bài viết xem nhiều
  */
 function langd_most_viewed_shortcode() {
-
-    $query = new WP_Query([
-        'post_type' => 'post',
-        'posts_per_page' => 6,
-        'meta_key' => 'langd_post_views',
-        'orderby' => 'meta_value_num',
-        'order' => 'DESC'
-    ]);
+    $query = new WP_Query(array(
+        'post_type'           => 'post',
+        'post_status'         => 'publish',
+        'posts_per_page'      => 4,
+        'meta_key'            => 'langd_post_views',
+        'orderby'             => 'meta_value_num',
+        'order'               => 'DESC',
+        'ignore_sticky_posts' => true,
+    ));
 
     ob_start();
 
     if ($query->have_posts()) {
-        echo '<h2>Bài viết xem nhiều</h2><div class="home-grid">';
+        echo '<section class="hcmv-section">';
+        echo '<div class="hcmv-container">';
+        echo '<div class="hcmv-section-head">';
+        echo '<div>';
+        echo '<h2>Bài viết xem nhiều</h2>';
+        echo '<p>Các bài viết đang được quan tâm nhiều nhất.</p>';
+        echo '</div>';
+        echo '</div>';
+
+        echo '<div class="hcmv-post-grid">';
 
         while ($query->have_posts()) {
             $query->the_post();
-            echo '<div class="card">';
-            echo '<a href="'.get_permalink().'">'.get_the_title().'</a>';
+            $views = (int) get_post_meta(get_the_ID(), 'langd_post_views', true);
+
+            echo '<a class="hcmv-post" href="' . esc_url(get_permalink()) . '">';
+            echo '<div class="hcmv-post-media">';
+            if (has_post_thumbnail()) {
+                echo get_the_post_thumbnail(get_the_ID(), 'medium_large');
+            }
+            echo '<span class="hcmv-tag">Xem nhiều</span>';
             echo '</div>';
+
+            echo '<div class="hcmv-post-body">';
+            echo '<h3>' . esc_html(get_the_title()) . '</h3>';
+            echo '<p>' . esc_html(wp_trim_words(get_the_excerpt(), 16, '...')) . '</p>';
+            echo '<div class="hcmv-post-meta">' . esc_html($views) . ' lượt xem</div>';
+            echo '</div>';
+            echo '</a>';
         }
 
         echo '</div>';
+        echo '</div>';
+        echo '</section>';
     }
 
     wp_reset_postdata();
