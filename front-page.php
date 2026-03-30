@@ -66,6 +66,9 @@ $copyright       = str_replace('%year%', date_i18n('Y'), $options['footer_copyri
         </header>
 
         <main class="hcmv-main">
+            <?php echo do_shortcode('[start_here]'); ?>
+            <?php echo do_shortcode('[most_viewed]'); ?>
+
             <section class="hcmv-hero">
                 <div class="hcmv-container hcmv-hero-grid">
                     <div>
