@@ -744,17 +744,27 @@ body.hcmv-homepage-body [data-header*="type-1"] {
 }
 
 .hcmv-footer {
-    padding: 48px 0 0;
-    background: #fff;
+    padding: 60px 0 0;
+    background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+    color: #cbd5f5;
+    position: relative;
+}
+
+.hcmv-footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #334155, transparent);
 }
 
 .hcmv-footer-grid {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr 1.2fr 1.4fr;
-    gap: 40px;
-    padding-bottom: 40px;
-    border-top: 1px solid rgba(15,23,42,.06);
-    padding-top: 40px;
+  display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+    gap: 50px;
+    padding: 50px 0;
 }
 
 .hcmv-footer-col {
@@ -773,11 +783,21 @@ body.hcmv-homepage-body [data-header*="type-1"] {
 
 .hcmv-footer h4 {
     margin: 0 0 16px;
-    font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: .1em;
-    color: #111827;
+    color: #ffffff;
+    font-size: 13px;
+    letter-spacing: .12em;
+}
+
+.hcmv-footer a {
+    color: #94a3b8;
+    transition: all .2s ease;
+}
+
+.hcmv-footer a:hover {
+    color: #60a5fa;
+    transform: translateX(4px);
 }
 
 .hcmv-footer p,
@@ -831,31 +851,49 @@ body.hcmv-homepage-body [data-header*="type-1"] {
 
 /* Social buttons */
 .hcmv-footer-socials {
+	padding: 12px 0;
+    margin: auto;
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    gap: 12px;
 }
 
-.hcmv-social-btn {
-    display: inline-flex;
+/* Icon dạng tròn */
+.hcmv-social-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 7px 12px;
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight: 700;
-    color: #fff !important;
-    line-height: 1;
-    transition: opacity .18s ease;
+    justify-content: center;
+    
+    background: rgba(255,255,255,0.08);
+    color: #cbd5f5;
+    font-size: 16px;
+
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all .25s ease;
 }
 
-.hcmv-social-btn:hover {
-    opacity: .85;
+/* Hover effect */
+.hcmv-social-icon:hover {
+    transform: translateY(-3px) scale(1.05);
 }
 
-.hcmv-social-fb   { background: #1877f2; }
-.hcmv-social-tt   { background: #010101; }
-.hcmv-social-zalo { background: #0068ff; }
+/* Màu riêng từng nền tảng */
+.hcmv-social-icon:nth-child(1):hover {
+    background: #1877f2; /* Facebook */
+    color: #fff;
+}
+
+.hcmv-social-icon:nth-child(2):hover {
+    background: #000000; /* TikTok */
+    color: #fff;
+}
+
+.hcmv-social-icon:nth-child(3):hover {
+    background: #ff0000; /* YouTube */
+    color: #fff;
+}
 
 /* Cột newsletter */
 .hcmv-footer-newsletter-desc {
@@ -911,11 +949,11 @@ body.hcmv-homepage-body [data-header*="type-1"] {
 }
 
 .hcmv-copyright {
-    padding: 18px 0 24px;
-    color: #9aa3b2;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    margin-top: 30px;
+    padding: 20px 0;
+    color: #64748b;
     font-size: 13px;
-    border-top: 1px solid rgba(15,23,42,.05);
-    text-align: center;
 }
 
 /* Responsive footer */
@@ -1648,190 +1686,58 @@ body.hcmv-single-post-body h1.hcmv-post-title {
     max-width: 100% !important;
     grid-column: unset !important;
 }
-
-.hcmv-comments-wrap {
-    margin-top: 40px;
-    padding-top: 28px;
-    border-top: 1px solid rgba(15, 23, 42, .08);
+/* Footer nâng cấp */
+.hcmv-footer-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 50px;
 }
 
-.hcmv-comments-wrap .comments-area,
-.hcmv-comments-wrap #comments,
-.hcmv-comments-wrap .wpdiscuz-container {
-    margin: 0;
+/* Bottom footer */
+.hcmv-footer-bottom {
+    border-top: 1px solid rgba(15,23,42,.06);
+    padding-top: 20px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-.hcmv-comments-wrap .comment-respond,
-.hcmv-comments-wrap .wpd-form-wrapper,
-.hcmv-comments-wrap .wpd-comment-wrap,
-.hcmv-comments-wrap .wpd-comment {
-    font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-}
-
-.hcmv-comments-wrap input[type="text"],
-.hcmv-comments-wrap input[type="email"],
-.hcmv-comments-wrap input[type="url"],
-.hcmv-comments-wrap textarea {
-    width: 100%;
-    border: 1px solid rgba(15, 23, 42, .12);
-    border-radius: 10px;
-    padding: 12px 14px;
-    background: #fff;
-    color: #334155;
-    box-sizing: border-box;
-}
-
-.hcmv-comments-wrap textarea {
-    min-height: 140px;
-    resize: vertical;
-}
-
-.hcmv-comments-wrap input:focus,
-.hcmv-comments-wrap textarea:focus {
-    outline: none;
-    border-color: #2f63ea;
-    box-shadow: 0 0 0 3px rgba(47, 99, 234, .08);
-}
-
-.hcmv-comments-wrap .form-submit input,
-.hcmv-comments-wrap button,
-.hcmv-comments-wrap .wpdiscuz-button,
-.hcmv-comments-wrap input[type="submit"] {
-    border-radius: 10px;
-}
-
-.hcmv-comments-wrap .form-submit input,
-.hcmv-comments-wrap .wpdiscuz-button,
-.hcmv-comments-wrap input[type="submit"] {
-    background: #2f63ea;
-    color: #fff;
-    border: none;
-    padding: 12px 18px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.hcmv-comments-wrap .form-submit input:hover,
-.hcmv-comments-wrap .wpdiscuz-button:hover,
-.hcmv-comments-wrap input[type="submit"]:hover {
-    opacity: .92;
-}
-
-.hcmv-comments-wrap .comment-list,
-.hcmv-comments-wrap .wpd-comments {
-    margin-top: 24px;
-}
-
-.hcmv-comments-wrap .comment,
-.hcmv-comments-wrap .wpd-comment {
-    padding: 18px 0;
-    border-bottom: 1px solid rgba(15, 23, 42, .08);
-}
-
-.hcmv-comments-wrap .comment-meta,
-.hcmv-comments-wrap .wpd-comment-date {
-    color: #94a3b8;
+/* Tags */
+.hcmv-footer-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     font-size: 13px;
 }
 
-.hcmv-comments-wrap .comment-content p,
-.hcmv-comments-wrap .wpd-comment-text p {
-    color: #334155;
-    line-height: 1.7;
+.hcmv-footer-tags a {
+    background: #f1f5f9;
+    padding: 6px 10px;
+    border-radius: 999px;
+    color: #374151;
 }
 
-@media (max-width: 760px) {
-    .hcmv-comments-wrap {
-        margin-top: 28px;
-        padding-top: 22px;
+.hcmv-footer-tags a:hover {
+    background: #2f63ea;
+    color: #fff;
+}
+
+/* Hover link */
+.hcmv-footer a:hover {
+    color: #2f63ea;
+    transform: translateX(2px);
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+    .hcmv-footer-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
-/* =========================
-   wpDiscuz - Ẩn icon góc trái
-   ========================= */
-body .wpdiscuz-widget-bubble,
-body .wpd-bubble-open,
-body .wpd-bubble-wrap,
-body .wpd-inline-open,
-body .wpdiscuz-comment-bubble,
-body .wpdiscuz-floating-button {
-    display: none !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-}
 
-/* =========================
-   wpDiscuz - Đổi nút sang xanh dương
-   ========================= */
-#wpdcom .wpdiscuz-button,
-#wpdcom input[type="submit"],
-#wpdcom button,
-.hcmv-comments-wrap .wpdiscuz-button,
-.hcmv-comments-wrap input[type="submit"],
-.hcmv-comments-wrap button {
-    background: #2f63ea !important;
-    border-color: #2f63ea !important;
-    color: #ffffff !important;
-    box-shadow: none !important;
-}
-
-/* Hover */
-#wpdcom .wpdiscuz-button:hover,
-#wpdcom input[type="submit"]:hover,
-#wpdcom button:hover,
-.hcmv-comments-wrap .wpdiscuz-button:hover,
-.hcmv-comments-wrap input[type="submit"]:hover,
-.hcmv-comments-wrap button:hover {
-    background: #1d4ed8 !important;
-    border-color: #1d4ed8 !important;
-    color: #ffffff !important;
-}
-
-/* Nút nhỏ khác trong comment */
-#wpdcom .wpd-comment-footer .wpd-vote-up,
-#wpdcom .wpd-comment-footer .wpd-vote-down,
-#wpdcom .wpd-comment-footer .wpd-reply-button,
-#wpdcom .wpd-comment-footer .wpd-share-button {
-    color: #2f63ea !important;
-}
-
-/* Link login / subscribe trong khu comment */
-#wpdcom a,
-.hcmv-comments-wrap a {
-    color: #2f63ea;
-}
-
-/* Nút Post Comment thật của wpDiscuz */
-#wpdcom input.wc_comm_submit,
-#wpdcom input.wpd-prim-button,
-#wpdcom input.wc_comm_submit.wpd-prim-button,
-#wpdcom input[id^="wpd-field-submit-"] {
-    background-color: #2f63ea !important;
-    background: #2f63ea !important;
-    background-image: none !important;
-    border: 1px solid #2f63ea !important;
-    color: #fff !important;
-    box-shadow: none !important;
-}
-
-/* Hover */
-#wpdcom input.wc_comm_submit:hover,
-#wpdcom input.wpd-prim-button:hover,
-#wpdcom input.wc_comm_submit.wpd-prim-button:hover,
-#wpdcom input[id^="wpd-field-submit-"]:hover {
-    background-color: #1d4ed8 !important;
-    background: #1d4ed8 !important;
-    background-image: none !important;
-    border-color: #1d4ed8 !important;
-    color: #fff !important;
-}
-
-/* Ẩn icon chat/bubble góc trái */
-body .wpdiscuz-widget-bubble,
-body .wpd-bubble-open,
-body .wpd-bubble-wrap,
-body .wpdiscuz-comment-bubble,
-body .wpdiscuz-floating-button {
-    display: none !important;
+@media (max-width: 640px) {
+    .hcmv-footer-grid {
+        grid-template-columns: 1fr;
+    }
 }
