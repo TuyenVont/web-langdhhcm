@@ -1065,14 +1065,14 @@ function hcmv_display_hot_topics() {
 
 }
 
-add_action('wp_enqueue_scripts', 'hcmv_enqueue_dark_mode_assets', 20);
+add_action('wp_enqueue_scripts', 'hcmv_enqueue_dark_mode_assets', 99);
 function hcmv_enqueue_dark_mode_assets() {
     $theme_version = wp_get_theme()->get('Version');
 
     wp_enqueue_style(
         'hcmv-dark-mode',
         get_stylesheet_directory_uri() . '/assets/css/dark-mode.css',
-        array(),
+        array('hcmv-landing-child-style'),
         $theme_version
     );
 

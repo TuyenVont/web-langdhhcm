@@ -1,115 +1,199 @@
-:root {
-    --hcmv-bg: #ffffff;
-    --hcmv-surface: #f8fafc;
-    --hcmv-surface-soft: #f1f5f9;
-    --hcmv-text: #0f172a;
-    --hcmv-text-soft: #475569;
-    --hcmv-border: #e2e8f0;
-    --hcmv-link: #2563eb;
-    --hcmv-button-bg: #0f172a;
-    --hcmv-button-text: #ffffff;
-    --hcmv-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
-}
-
-html[data-theme="dark"] {
-    --hcmv-bg: #0b1220;
-    --hcmv-surface: #111827;
-    --hcmv-surface-soft: #1e293b;
-    --hcmv-text: #e5e7eb;
-    --hcmv-text-soft: #cbd5e1;
-    --hcmv-border: #334155;
-    --hcmv-link: #93c5fd;
-    --hcmv-button-bg: #e2e8f0;
-    --hcmv-button-text: #0f172a;
-    --hcmv-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-}
-
-html,
-body,
-body * {
+/* ── Transition mượt ── */
+html, body, body * {
     transition:
         background-color 0.25s ease,
         color 0.25s ease,
-        border-color 0.25s ease,
-        box-shadow 0.25s ease;
+        border-color 0.25s ease !important;
 }
 
-body {
-    background-color: var(--hcmv-bg);
-    color: var(--hcmv-text);
+/* ===== NỀN TỔNG ===== */
+html[data-theme="dark"] body.hcmv-homepage-body,
+html[data-theme="dark"] body.hcmv-single-post-body,
+html[data-theme="dark"] .hcmv-wrap,
+html[data-theme="dark"] .hcmv-shell,
+html[data-theme="dark"] .hcmv-main,
+html[data-theme="dark"] .hcmv-post-main,
+html[data-theme="dark"] .hcmv-hero,
+html[data-theme="dark"] .hcmv-section,
+html[data-theme="dark"] .hcmv-post-content-area,
+html[data-theme="dark"] .hcmv-post-hero,
+html[data-theme="dark"] .hcmv-article-card {
+    background: #0f172a !important;
+    color: #e2e8f0 !important;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: var(--hcmv-text);
+/* ===== TOPBAR ===== */
+html[data-theme="dark"] .hcmv-topbar {
+    background: #0f172a !important;
+    border-bottom: 1px solid #1e293b !important;
 }
 
-p,
-li,
-span,
-small,
-.entry-meta,
-.entry-content,
-.widget,
-.ct-sidebar {
-    color: var(--hcmv-text-soft);
+html[data-theme="dark"] .hcmv-search {
+    background: #1e293b !important;
+    border-color: #334155 !important;
 }
 
-a {
-    color: var(--hcmv-link);
+html[data-theme="dark"] .hcmv-search input {
+    background: transparent !important;
+    color: #e2e8f0 !important;
 }
 
-input,
-textarea,
-select,
-button {
-    border-color: var(--hcmv-border);
+html[data-theme="dark"] .hcmv-nav-menu .sub-menu {
+    background: #1e293b !important;
+    border-color: #334155 !important;
 }
 
-article,
-.widget,
-aside,
-blockquote,
-pre,
-code,
-table,
-.wp-block-group,
-.wp-block-table,
-.wp-block-quote,
-.wp-block-search,
-.hcmv-note-box,
-.hcmv-summary-box {
-    background-color: var(--hcmv-surface);
-    color: var(--hcmv-text);
-    border-color: var(--hcmv-border);
+html[data-theme="dark"] .hcmv-nav-menu .sub-menu li a:hover {
+    background: #334155 !important;
 }
 
-.hcmv-note-box,
-.hcmv-summary-box {
-    border: 1px solid var(--hcmv-border);
-    border-radius: 14px;
-    padding: 16px 18px;
+/* ===== CARD / SURFACE ===== */
+html[data-theme="dark"] .hcmv-post,
+html[data-theme="dark"] .hcmv-audience,
+html[data-theme="dark"] .hcmv-faq-item,
+html[data-theme="dark"] .hcmv-chip,
+html[data-theme="dark"] .hcmv-toc-box,
+html[data-theme="dark"] .hcmv-side-card,
+html[data-theme="dark"] .hcmv-related-item,
+html[data-theme="dark"] .hcmv-newsletter-box,
+html[data-theme="dark"] .hcmv-area-box,
+html[data-theme="dark"] .hcmv-btn-secondary,
+html[data-theme="dark"] .hcmv-post-media {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #e2e8f0 !important;
 }
 
-.entry-content table td,
-.entry-content table th,
-.wp-block-table td,
-.wp-block-table th {
-    border-color: var(--hcmv-border);
+/* ===== HERO CARD ===== */
+html[data-theme="dark"] .hcmv-hero-card {
+    background: #1e293b !important;
 }
 
-.entry-content img {
-    opacity: 1;
+/* ===== EXPLORE / AREA ===== */
+html[data-theme="dark"] .hcmv-area-box {
+    background: #1e293b !important;
 }
 
-html[data-theme="dark"] img {
-    opacity: 0.96;
+html[data-theme="dark"] .hcmv-area-left {
+    background: #1e293b !important;
 }
 
+html[data-theme="dark"] .hcmv-area-map {
+    background: #0f172a !important;
+}
+
+/* ===== ARTICLE CONTENT ===== */
+html[data-theme="dark"] .hcmv-toc-box,
+html[data-theme="dark"] .hcmv-article-content blockquote,
+html[data-theme="dark"] .hcmv-article-content pre,
+html[data-theme="dark"] .hcmv-note-box,
+html[data-theme="dark"] .hcmv-summary-box,
+html[data-theme="dark"] .hcmv-article-content .hcmv-note-box,
+html[data-theme="dark"] .hcmv-article-content .hcmv-summary-box {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #cbd5e1 !important;
+}
+
+/* ===== PILL / TAG ===== */
+html[data-theme="dark"] .hcmv-pill {
+    background: #1e293b !important;
+    color: #93c5fd !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .hcmv-post-tags a {
+    background: #1e3a2f !important;
+    color: #6ee7b7 !important;
+}
+
+/* ===== SIDEBAR ===== */
+html[data-theme="dark"] .hcmv-side-card {
+    background: #1e293b !important;
+}
+
+html[data-theme="dark"] .hcmv-side-item {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .hcmv-hot-tag {
+    background: #1e293b !important;
+    color: #93c5fd !important;
+    border-color: #334155 !important;
+}
+
+/* ===== COMMENTS ===== */
+html[data-theme="dark"] .hcmv-comments-wrap,
+html[data-theme="dark"] #wpdcom,
+html[data-theme="dark"] .wpdiscuz-comment-wrap,
+html[data-theme="dark"] .wc-comment-text {
+    background: #0f172a !important;
+    color: #e2e8f0 !important;
+}
+
+/* ===== INPUT / FORM ===== */
+html[data-theme="dark"] input,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] select {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+    border-color: #334155 !important;
+}
+
+/* ===== TEXT CHÍNH ===== */
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] .hcmv-post-title,
+html[data-theme="dark"] .hcmv-brand,
+html[data-theme="dark"] .hcmv-nav-menu > li > a,
+html[data-theme="dark"] .hcmv-side-item strong,
+html[data-theme="dark"] .hcmv-related-title {
+    color: #f8fafc !important;
+}
+
+/* ===== TEXT PHỤ ===== */
+html[data-theme="dark"] p,
+html[data-theme="dark"] li,
+html[data-theme="dark"] .hcmv-post-meta,
+html[data-theme="dark"] .hcmv-post-submeta,
+html[data-theme="dark"] .hcmv-breadcrumbs,
+html[data-theme="dark"] .hcmv-breadcrumbs a,
+html[data-theme="dark"] .hcmv-article-content p,
+html[data-theme="dark"] .hcmv-article-content li {
+    color: #cbd5e1 !important;
+}
+
+/* ===== FOOTER ===== */
+html[data-theme="dark"] .hcmv-footer {
+    background: #070d1a !important;
+}
+
+html[data-theme="dark"] .hcmv-footer p,
+html[data-theme="dark"] .hcmv-footer li,
+html[data-theme="dark"] .hcmv-footer a,
+html[data-theme="dark"] .hcmv-copyright {
+    color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .hcmv-footer h4 {
+    color: #f1f5f9 !important;
+}
+
+/* ===== GIỮ NGUYÊN brand/accent ===== */
+html[data-theme="dark"] img,
+html[data-theme="dark"] .hcmv-btn-primary,
+html[data-theme="dark"] .hcmv-badge,
+html[data-theme="dark"] .hcmv-tag,
+html[data-theme="dark"] .hcmv-map-cta,
+html[data-theme="dark"] .hcmv-hero-img-wrap {
+    background-color: unset !important;
+    color: unset !important;
+}
+
+/* ===== NÚT TOGGLE ===== */
 .hcmv-theme-toggle {
     position: fixed;
     right: 20px;
@@ -117,50 +201,22 @@ html[data-theme="dark"] img {
     z-index: 9999;
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    padding: 12px 16px;
-    border: 1px solid var(--hcmv-border);
+    gap: 8px;
+    padding: 10px 16px;
     border-radius: 999px;
-    background: var(--hcmv-button-bg);
-    color: var(--hcmv-button-text);
-    box-shadow: var(--hcmv-shadow);
+    border: 1px solid #334155;
+    background: #0f172a;
+    color: #e2e8f0;
     cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 20px rgba(0,0,0,.3);
     line-height: 1;
 }
 
-.hcmv-theme-toggle:hover {
-    transform: translateY(-1px);
-}
-
-.hcmv-theme-toggle__text {
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.hcmv-theme-toggle__icon {
-    font-size: 16px;
-}
-
-html[data-theme="dark"] .site,
-html[data-theme="dark"] .site-content,
-html[data-theme="dark"] .content-area,
-html[data-theme="dark"] .ct-container,
-html[data-theme="dark"] .hero-section,
-html[data-theme="dark"] .entry-card,
-html[data-theme="dark"] .wp-block-latest-posts,
-html[data-theme="dark"] .wp-block-categories,
-html[data-theme="dark"] .wp-block-archives {
-    background-color: transparent;
-}
+.hcmv-theme-toggle:hover { transform: translateY(-1px); }
+.hcmv-theme-toggle__icon { font-size: 16px; }
+.hcmv-theme-toggle__text { font-size: 14px; font-weight: 600; }
 
 @media (max-width: 768px) {
-    .hcmv-theme-toggle {
-        right: 14px;
-        bottom: 14px;
-        padding: 11px 14px;
-    }
-
-    .hcmv-theme-toggle__text {
-        font-size: 13px;
-    }
+    .hcmv-theme-toggle { right: 14px; bottom: 14px; padding: 9px 13px; }
 }

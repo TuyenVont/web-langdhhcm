@@ -3,7 +3,7 @@ Theme Name: HCMV Blocksy Child V3 Post Template
 Theme URI: https://example.com/
 Description: Child theme cho Blocksy với homepage editable và template bài viết giống mockup, chỉnh được trong admin WordPress.
 Author: OpenAI
-Version: 3.0.0
+Version: 3.0.1
 Template: blocksy
 Text Domain: hcmv-blocksy-child
 */
@@ -248,6 +248,13 @@ body.hcmv-homepage-body [data-header*="type-1"] {
     box-shadow: 0 10px 24px rgba(47, 99, 234, .22);
 }
 
+.hcmv-btn-header {
+    min-height: 38px;
+    padding: 0 16px;
+    font-size: 14px;
+    border-radius: 10px;
+}
+
 .hcmv-btn-secondary {
     background: #fff;
     border-color: rgba(47, 99, 234, .18);
@@ -262,7 +269,7 @@ body.hcmv-homepage-body [data-header*="type-1"] {
     display: grid;
     grid-template-columns: 1.06fr .94fr;
     gap: 40px;
-    align-items: center;
+    align-items: stretch;
 }
 
 .hcmv-badge {
@@ -323,17 +330,26 @@ body.hcmv-homepage-body [data-header*="type-1"] {
 
 .hcmv-hero-card {
     position: relative;
-    min-height: 640px;
-    border-radius: 32px;
+    border-radius: 28px;
     overflow: hidden;
-    background: linear-gradient(180deg, #cadcf6 0%, #edf3ff 100%);
-    box-shadow: var(--shadow);
+    background: #cadcf6;
+    box-shadow: 0 8px 40px rgba(15,23,42,.13);
+    display: flex;
+    flex-direction: column;
+}
+
+.hcmv-hero-img-wrap {
+    flex: 1 1 0;
+    min-height: 0;
+    overflow: hidden;
+    position: relative;
 }
 
 .hcmv-hero-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center top;
     display: block;
 }
 

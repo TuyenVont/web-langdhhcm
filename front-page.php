@@ -60,7 +60,7 @@ $copyright       = str_replace('%year%', date_i18n('Y'), $options['footer_copyri
                         <span aria-hidden="true">🔍</span>
                         <input type="search" name="s" placeholder="<?php echo esc_attr($options['search_placeholder']); ?>">
                     </form>
-                    <a class="hcmv-btn hcmv-btn-primary" href="<?php echo esc_url($options['header_cta_url']); ?>"><?php echo esc_html($options['header_cta_text']); ?></a>
+                    <a class="hcmv-btn hcmv-btn-primary hcmv-btn-header" href="<?php echo esc_url($options['header_cta_url']); ?>">Tìm kiếm</a>
                 </div>
             </div>
         </header>
@@ -88,10 +88,12 @@ $copyright       = str_replace('%year%', date_i18n('Y'), $options['footer_copyri
                     </div>
 
                     <div class="hcmv-hero-card">
-                        <img src="<?php echo esc_url($hero_image); ?>" alt="<?php echo esc_attr($site_name); ?>">
-                        <div class="hcmv-hero-overlay">
-                            <small><?php echo esc_html($options['hero_overlay_label']); ?></small>
-                            <strong><?php echo esc_html($options['hero_overlay_title']); ?></strong>
+                        <div class="hcmv-hero-img-wrap">
+                            <img src="<?php echo esc_url($hero_image); ?>" alt="<?php echo esc_attr($site_name); ?>">
+                            <div class="hcmv-hero-overlay">
+                                <small><?php echo esc_html($options['hero_overlay_label']); ?></small>
+                                <strong><?php echo esc_html($options['hero_overlay_title']); ?></strong>
+                            </div>
                         </div>
                     </div>
                 </div>
