@@ -99,6 +99,9 @@ $copyright       = str_replace('%year%', date_i18n('Y'), $options['footer_copyri
                 </div>
             </section>
 
+            <?php echo do_shortcode('[start_here]'); ?>
+            <?php echo do_shortcode('[most_viewed]'); ?>
+            
             <section class="hcmv-section" id="bai-viet">
                 <div class="hcmv-container">
                     <div class="hcmv-section-head">
