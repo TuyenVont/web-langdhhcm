@@ -1154,4 +1154,88 @@ function hcmv_register_default_categories() {
 }
 add_action( 'init', 'hcmv_register_default_categories', 10 );
 
+/**
+ * LANGD - Homepage custom blocks
+ */
 
+/**
+ * Tăng lượt xem bài viết
+ */
+function langd_track_post_views() {
+    if (is_admin() || !is_single()) return;
+
+    $post_id = get_queried_object_id();
+    if (!$post_id) return;
+
+    $views = (int) get_post_meta($post_id, 'langd_post_views', true);
+    $views++;
+
+    update_post_meta($post_id, 'langd_post_views', $views);
+}
+add_action('wp', 'langd_track_post_views');
+
+
+/**
+ * Block: Bắt đầu từ đây
+ */
+function langd_start_here_shortcode() {
+
+    $query = new WP_Query([
+        'post_type' => 'post',
+        'posts_per_page' => 6,
+        'category_name' => 'bat-dau-tu-day'
+    ]);
+
+    ob_start();
+
+    if ($query->have_posts()) {
+        echo '<h2>Bắt đầu từ đây</h2><div class="home-grid">';
+
+        while ($query->have_posts()) {
+            $query->the_post();
+            echo '<div class="card">';
+            echo '<a href="'.get_permalink().'">'.get_the_title().'</a>';
+            echo '</div>';
+        }
+
+        echo '</div>';
+    }
+
+    wp_reset_postdata();
+    return ob_get_clean();
+}
+add_shortcode('start_here', 'langd_start_here_shortcode');
+
+
+/**
+ * Block: Bài viết xem nhiều
+ */
+function langd_most_viewed_shortcode() {
+
+    $query = new WP_Query([
+        'post_type' => 'post',
+        'posts_per_page' => 6,
+        'meta_key' => 'langd_post_views',
+        'orderby' => 'meta_value_num',
+        'order' => 'DESC'
+    ]);
+
+    ob_start();
+
+    if ($query->have_posts()) {
+        echo '<h2>Bài viết xem nhiều</h2><div class="home-grid">';
+
+        while ($query->have_posts()) {
+            $query->the_post();
+            echo '<div class="card">';
+            echo '<a href="'.get_permalink().'">'.get_the_title().'</a>';
+            echo '</div>';
+        }
+
+        echo '</div>';
+    }
+
+    wp_reset_postdata();
+    return ob_get_clean();
+}
+add_shortcode('most_viewed', 'langd_most_viewed_shortcode');
