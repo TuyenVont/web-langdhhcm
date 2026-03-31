@@ -1184,11 +1184,14 @@ add_action('wp', 'langd_track_post_views');
  * Block: Bắt đầu từ đây
  */
 function langd_start_here_shortcode() {
+    $featured_ids = array(1, 8, 9, 15);
+
     $query = new WP_Query(array(
         'post_type'           => 'post',
         'post_status'         => 'publish',
         'posts_per_page'      => 4,
-        'category_name'       => 'bat-dau-tu-day',
+        'post__in'            => $featured_ids,
+        'orderby'             => 'post__in',
         'ignore_sticky_posts' => true,
     ));
 
@@ -1200,9 +1203,8 @@ function langd_start_here_shortcode() {
         echo '<div class="hcmv-section-head">';
         echo '<div>';
         echo '<h2>Bắt đầu từ đây</h2>';
-        echo '<p>Những bài viết nền tảng dành cho người mới.</p>';
+        echo '<p>Những bài viết tiêu biểu dành cho người mới.</p>';
         echo '</div>';
-        echo '<a class="hcmv-btn hcmv-btn-secondary" href="' . esc_url(home_url('/category/bat-dau-tu-day/')) . '">Xem tất cả</a>';
         echo '</div>';
 
         echo '<div class="hcmv-post-grid">';
@@ -1214,6 +1216,8 @@ function langd_start_here_shortcode() {
             echo '<div class="hcmv-post-media">';
             if (has_post_thumbnail()) {
                 echo get_the_post_thumbnail(get_the_ID(), 'medium_large');
+            } else {
+                echo '<img src="https://via.placeholder.com/800x520?text=Bat+dau+tu+day" alt="' . esc_attr(get_the_title()) . '">';
             }
             echo '<span class="hcmv-tag">Bắt đầu từ đây</span>';
             echo '</div>';
@@ -1249,6 +1253,18 @@ function langd_most_viewed_shortcode() {
         'ignore_sticky_posts' => true,
     ));
 
+    // Nếu chưa có bài nào có view, lấy bài mới nhất làm fallback
+    if (!$query->have_posts()) {
+        $query = new WP_Query(array(
+            'post_type'           => 'post',
+            'post_status'         => 'publish',
+            'posts_per_page'      => 4,
+            'orderby'             => 'date',
+            'order'               => 'DESC',
+            'ignore_sticky_posts' => true,
+        ));
+    }
+
     ob_start();
 
     if ($query->have_posts()) {
@@ -1269,9 +1285,13 @@ function langd_most_viewed_shortcode() {
 
             echo '<a class="hcmv-post" href="' . esc_url(get_permalink()) . '">';
             echo '<div class="hcmv-post-media">';
+
             if (has_post_thumbnail()) {
                 echo get_the_post_thumbnail(get_the_ID(), 'medium_large');
+            } else {
+                echo '<img src="https://via.placeholder.com/800x520?text=Xem+nhieu" alt="' . esc_attr(get_the_title()) . '">';
             }
+
             echo '<span class="hcmv-tag">Xem nhiều</span>';
             echo '</div>';
 
