@@ -116,8 +116,12 @@ $copyright       = str_replace('%year%', date_i18n('Y'), $options['footer_copyri
                         <?php foreach ($posts as $post_item) : ?>
                             <a class="hcmv-post" href="<?php echo esc_url($post_item['url']); ?>">
                                 <div class="hcmv-post-media">
-                                    <img src="<?php echo esc_url($post_item['image']); ?>" alt="<?php echo esc_attr($post_item['title']); ?>">
-                                    <span class="hcmv-tag"><?php echo esc_html($post_item['tag']); ?></span>
+                                    <?php if (!empty($post_item['id'])) : ?>
+                                        <?php echo hcmv_child_post_media_html($post_item['id'], 'large', $post_item['tag']); // phpcs:ignore ?>
+                                    <?php else : ?>
+                                        <img src="<?php echo esc_url($post_item['image']); ?>" alt="<?php echo esc_attr($post_item['title']); ?>">
+                                        <span class="hcmv-tag"><?php echo esc_html($post_item['tag']); ?></span>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="hcmv-post-body">
                                     <h3><?php echo esc_html($post_item['title']); ?></h3>
@@ -194,25 +198,41 @@ $copyright       = str_replace('%year%', date_i18n('Y'), $options['footer_copyri
             </section>
 
             <section class="hcmv-newsletter">
-                <div class="hcmv-container">
-                    <div class="hcmv-newsletter-box">
-                        <h2><?php echo esc_html($options['newsletter_title']); ?></h2>
-                        <p><?php echo esc_html($options['newsletter_desc']); ?></p>
-                        <form class="hcmv-subscribe-form" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
-                            <input type="hidden" name="action" value="hcmv_subscribe">
-                            <input type="hidden" name="redirect_to" value="<?php echo esc_url(home_url('/')); ?>">
-                            <?php wp_nonce_field('hcmv_subscribe', 'hcmv_nonce'); ?>
-                            <input type="email" name="subscriber_email" placeholder="<?php echo esc_attr($options['newsletter_placeholder']); ?>" required>
-                            <button class="hcmv-btn hcmv-btn-primary" type="submit"><?php echo esc_html($options['newsletter_button_text']); ?></button>
-                        </form>
-                        <?php if ('ok' === $subscribe_state) : ?>
-                            <div class="hcmv-subscribe-status"><?php echo esc_html($options['newsletter_success']); ?></div>
-                        <?php elseif ('invalid' === $subscribe_state) : ?>
-                            <div class="hcmv-subscribe-status"><?php echo esc_html($options['newsletter_invalid']); ?></div>
-                        <?php endif; ?>
-                    </div>
+    <div class="hcmv-container">
+        <div class="hcmv-newsletter-box">
+            <h2><?php echo esc_html($options['newsletter_title']); ?></h2>
+            <p><?php echo esc_html($options['newsletter_desc']); ?></p>
+
+            <form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post" class="hcmv-subscribe-form">
+                <input type="hidden" name="action" value="hcmv_subscribe">
+                
+                <?php wp_nonce_field('hcmv_subscribe', 'hcmv_nonce'); ?>
+                
+                <input type="hidden" name="redirect_to" value="<?php echo esc_url(home_url($wp->request)); ?>">
+
+                <input 
+                    type="email" 
+                    name="subscriber_email" 
+                    placeholder="<?php echo esc_attr($options['newsletter_placeholder']); ?>" 
+                    required
+                >
+                <button type="submit" class="hcmv-btn hcmv-btn-primary">
+                    <?php echo esc_html($options['newsletter_button_text']); ?>
+                </button>
+            </form>
+
+            <?php if ($status === 'ok') : ?>
+                <div class="hcmv-subscribe-status">
+                    <?php echo esc_html($options['newsletter_success']); ?>
                 </div>
-            </section>
+            <?php elseif ($status === 'invalid') : ?>
+                <div class="hcmv-subscribe-status" style="color: #ffeb3b;">
+                    <?php echo esc_html($options['newsletter_invalid']); ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</section>
         </main>
 
         <footer class="hcmv-footer">

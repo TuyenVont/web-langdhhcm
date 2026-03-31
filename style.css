@@ -679,13 +679,12 @@ body.hcmv-homepage-body [data-header*="type-1"] {
     line-height: 1.75;
     font-size: 16px;
 }
-
 .hcmv-newsletter {
     padding: 48px 0 58px;
 }
 
 .hcmv-newsletter-box {
-    background: #3b7d32;
+    background: #3b7d32; /* Màu xanh lá chủ đạo */
     color: #fff;
     border-radius: 30px;
     padding: 56px 24px;
@@ -694,6 +693,7 @@ body.hcmv-homepage-body [data-header*="type-1"] {
     overflow: hidden;
 }
 
+/* Các vòng tròn trang trí ẩn sau nền */
 .hcmv-newsletter-box::before,
 .hcmv-newsletter-box::after {
     content: "";
@@ -702,19 +702,8 @@ body.hcmv-homepage-body [data-header*="type-1"] {
     background: rgba(255,255,255,.07);
 }
 
-.hcmv-newsletter-box::before {
-    width: 320px;
-    height: 320px;
-    right: -60px;
-    top: -80px;
-}
-
-.hcmv-newsletter-box::after {
-    width: 220px;
-    height: 220px;
-    left: -80px;
-    bottom: -120px;
-}
+.hcmv-newsletter-box::before { width: 320px; height: 320px; right: -60px; top: -80px; }
+.hcmv-newsletter-box::after { width: 220px; height: 220px; left: -80px; bottom: -120px; }
 
 .hcmv-newsletter-box h2 {
     position: relative;
@@ -723,14 +712,6 @@ body.hcmv-homepage-body [data-header*="type-1"] {
     font-size: clamp(34px, 4vw, 60px);
     line-height: .98;
     letter-spacing: -.04em;
-}
-
-.hcmv-newsletter-box p {
-    position: relative;
-    z-index: 1;
-    margin: 0 0 24px;
-    color: rgba(255,255,255,.88);
-    font-size: 18px;
 }
 
 .hcmv-subscribe-form {
@@ -1756,4 +1737,12 @@ body.hcmv-single-post-body h1.hcmv-post-title {
     .hcmv-footer-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* Khối media khi bài viết không có ảnh */
+.hcmv-post-no-img {
+    width: 100%;
+    height: 100%;
+    min-height: 200px;
+    background: #e2e8f0;
 }
