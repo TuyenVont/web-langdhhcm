@@ -267,17 +267,15 @@ while (have_posts()) : the_post();
             </div>
 
             <!-- Cột 4: Hỗ trợ -->
-            <div class="hcmv-footer-col">
+             <div class="hcmv-footer-col">
                 <h4>HỖ TRỢ</h4>
                 <ul class="hcmv-footer-menu">
-                    <li><a href="<?php echo esc_url(home_url('/gioi-thieu')); ?>">Giới thiệu</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/lien-he')); ?>">Liên hệ</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/chinh-sach-bao-mat')); ?>">Chính sách bảo mật</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/dieu-khoan')); ?>">Điều khoản sử dụng</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/sitemap.xml')); ?>">Sitemap</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/index.php/gioi-thieu/')); ?>">Giới thiệu</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/index.php/lien-he/')); ?>">Liên hệ</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/index.php/chinh-sach-bao-mat-2/')); ?>">Chính sách bảo mật</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/index.php/dieu-khoan-su-dung/')); ?>">Điều khoản sử dụng</a></li>
                 </ul>
             </div>
-
             <!-- Cột 5: Newsletter -->
             <div class="hcmv-footer-col">
                 <h4>NHẬN TIPS SINH VIÊN</h4>
