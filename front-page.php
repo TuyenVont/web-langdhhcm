@@ -233,14 +233,14 @@ $copyright       = str_replace('%year%', date_i18n('Y'), $options['footer_copyri
 
             <!-- Cột 2: Khám phá -->
              <div class="hcmv-footer-col">
-                <h4>KHÁM PHÁ</h4>
-					<ul class="hcmv-footer-menu">
-						<li><a href="<?php echo esc_url(home_url('/an-uong')); ?>">Cẩm nang tân sinh viên</a></li>
-						<li><a href="<?php echo esc_url(home_url('/nha-tro')); ?>">Chỗ ở</a></li>
-						<li><a href="<?php echo esc_url(home_url('/di-lai')); ?>">Đời sống & tiện ích</a></li>
-						<li><a href="<?php echo esc_url(home_url('/hoc-tap')); ?>">Học & làm</a></li>
-					</ul>
-            </div>
+    <h4>KHÁM PHÁ</h4>
+    <ul class="hcmv-footer-menu">
+        <li><a href="<?php echo esc_url(home_url('/index.php/category/di-chuyen-tien-ich/')); ?>">Di chuyển & tiện ích</a></li>
+        <li><a href="<?php echo esc_url(home_url('/index.php/category/doi-song-sinh-vien/')); ?>">Đời sống sinh viên</a></li>
+        <li><a href="<?php echo esc_url(home_url('/index.php/category/hoc-tap-phat-trien-ky-nang/')); ?>">Học tập & phát triển kỹ năng</a></li>
+        <li><a href="<?php echo esc_url(home_url('/index.php/category/viec-lam-co-hoi-sinh-vien/')); ?>">Việc làm & cơ hội sinh viên</a></li>
+    </ul>
+</div>
 
             <!-- Cột 3: Cẩm nang -->
             <div class="hcmv-footer-col">
