@@ -1085,6 +1085,18 @@ function hcmv_enqueue_dark_mode_assets() {
     );
 }
 
+add_action('wp_enqueue_scripts', 'hcmv_enqueue_lead_form_assets', 20);
+function hcmv_enqueue_lead_form_assets() {
+    $theme_version = wp_get_theme()->get('Version');
+
+    wp_enqueue_style(
+        'hcmv-lead-form',
+        get_stylesheet_directory_uri() . '/assets/css/lead-form.css',
+        array(),
+        $theme_version
+    );
+}
+
 add_action('wp_head', 'hcmv_apply_saved_theme_early', 1);
 function hcmv_apply_saved_theme_early() {
     ?>
@@ -1154,6 +1166,43 @@ function hcmv_register_default_categories() {
 }
 add_action( 'init', 'hcmv_register_default_categories', 10 );
 
+add_shortcode('hcmv_email_lead_form', 'hcmv_render_email_lead_form');
+function hcmv_render_email_lead_form($atts) {
+    $atts = shortcode_atts(array(
+        'title' => 'Nhận tin mới dành riêng cho sinh viên Làng Đại Học',
+        'desc' => 'Đăng ký email để nhận cập nhật về chỗ ở, điện nước, quán ăn, việc làm thêm và các thông báo hữu ích.',
+        'button_text' => 'Nhận cập nhật miễn phí',
+        'form_shortcode' => '[mailpoet_form id="1"]'
+    ), $atts, 'hcmv_email_lead_form');
+
+    ob_start();
+    ?>
+    <section class="hcmv-lead-form-section">
+        <div class="hcmv-lead-form-wrap">
+            <div class="hcmv-lead-form-content">
+                <span class="hcmv-lead-badge">Miễn phí • Không spam</span>
+                <h2 class="hcmv-lead-title"><?php echo esc_html($atts['title']); ?></h2>
+                <p class="hcmv-lead-desc"><?php echo esc_html($atts['desc']); ?></p>
+
+                <ul class="hcmv-lead-points">
+                    <li>Nhận tin mới nhanh hơn</li>
+                    <li>Ưu tiên nội dung hữu ích cho sinh viên</li>
+                    <li>Hủy đăng ký bất cứ lúc nào</li>
+                </ul>
+            </div>
+
+            <div class="hcmv-lead-form-box">
+                <div class="hcmv-lead-form-inner">
+                    <p class="hcmv-lead-form-label"><?php echo esc_html($atts['button_text']); ?></p>
+                    <?php echo do_shortcode($atts['form_shortcode']); ?>
+                    <p class="hcmv-lead-form-note">Bằng việc đăng ký, bạn đồng ý nhận email cập nhật từ HCMV.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <?php
+    return ob_get_clean();
+}
 /**
  * LANGD - Homepage custom blocks
  */
