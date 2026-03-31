@@ -36,6 +36,7 @@ while (have_posts()) : the_post();
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <?php wp_head(); ?>
 </head>
 <body <?php body_class('hcmv-single-post-body'); ?>>
@@ -210,90 +211,104 @@ while (have_posts()) : the_post();
             </section>
         </main>
 
-        <footer class="hcmv-footer">
-            <div class="hcmv-container">
-                <div class="hcmv-footer-grid">
+        <div class="hcmv-footer-grid">
 
-                    <!-- Cột 1: Giới thiệu -->
-                    <div class="hcmv-footer-col">
-                        <div class="hcmv-footer-brand"><?php echo esc_html($footer_brand); ?></div>
-                        <p><?php echo esc_html($home_options['footer_desc']); ?></p>
-                    </div>
-
-                    <!-- Cột 2: Chuyên mục -->
-                    <div class="hcmv-footer-col">
-                        <h4>CHUYÊN MỤC</h4>
-                        <?php
-                        if (has_nav_menu('hcmv_footer_1')) {
-                            wp_nav_menu(array(
-                                'theme_location' => 'hcmv_footer_1',
-                                'container'      => false,
-                                'menu_class'     => 'hcmv-footer-menu',
-                                'fallback_cb'    => false,
-                            ));
-                        } else {
-                            echo '<ul class="hcmv-footer-menu"><li><a href="#bai-viet">Ăn uống</a></li><li><a href="#kham-pha">Nhà trọ</a></li><li><a href="#kham-pha">Đi lại</a></li><li><a href="#faq">Học tập</a></li><li><a href="#faq">Việc làm thêm</a></li></ul>';
-                        }
-                        ?>
-                    </div>
-
-                    <!-- Cột 3: Liên hệ -->
-                    <div class="hcmv-footer-col">
-                        <h4>LIÊN HỆ</h4>
-                        <ul class="hcmv-footer-contact">
-                            <li>
-                                <span class="hcmv-footer-icon" aria-hidden="true">📍</span>
-                                <span>Khu đô thị ĐHQG-HCM, Dĩ An, Bình Dương</span>
-                            </li>
-                            <li>
-                                <span class="hcmv-footer-icon" aria-hidden="true">✉️</span>
-                                <a href="mailto:hello@langdaihoc.vn">hello@langdaihoc.vn</a>
-                            </li>
-                            <li>
-                                <span class="hcmv-footer-icon" aria-hidden="true">📞</span>
-                                <a href="tel:+84000000000">0900 000 000</a>
-                            </li>
-                        </ul>
-                        <div class="hcmv-footer-socials">
-                            <a class="hcmv-social-btn hcmv-social-fb" href="#" aria-label="Facebook" rel="noopener noreferrer" target="_blank">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-                                Facebook
-                            </a>
-                            <a class="hcmv-social-btn hcmv-social-tt" href="#" aria-label="TikTok" rel="noopener noreferrer" target="_blank">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
-                                TikTok
-                            </a>
-                            <a class="hcmv-social-btn hcmv-social-zalo" href="#" aria-label="Zalo" rel="noopener noreferrer" target="_blank">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V10h2v6zm-1-7a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm5 7h-2v-3.5c0-.83-.67-1.5-1.5-1.5S10 11.67 10 12.5V16H8v-6h2v.93A3.49 3.49 0 0 1 13 9.5c1.93 0 3.5 1.57 3.5 3.5V16z"/></svg>
-                                Zalo
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Cột 4: Đăng ký nhận tin -->
-                    <div class="hcmv-footer-col">
-                        <h4>NHẬN BẢN TIN LÀNG ĐH</h4>
-                        <p class="hcmv-footer-newsletter-desc">Đăng ký để nhận thông báo về tin tức và cẩm nang mới nhất.</p>
-                        <form class="hcmv-footer-subscribe" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
-                            <input type="hidden" name="action" value="hcmv_subscribe">
-                            <input type="hidden" name="redirect_to" value="<?php echo esc_url(home_url('/')); ?>">
-                            <?php wp_nonce_field('hcmv_subscribe', 'hcmv_nonce'); ?>
-                            <div class="hcmv-footer-subscribe-row">
-                                <input
-                                    type="email"
-                                    name="subscriber_email"
-                                    placeholder="Email của bạn..."
-                                    required
-                                    aria-label="Địa chỉ email đăng ký nhận bản tin"
-                                >
-                                <button type="submit" class="hcmv-footer-subscribe-btn">Đăng ký</button>
-                            </div>
-                        </form>
-                    </div>
-
-                </div><!-- .hcmv-footer-grid -->
-                <div class="hcmv-copyright"><?php echo esc_html($copyright); ?></div>
+            <!-- Cột 1: Brand -->
+            <div class="hcmv-footer-col">
+                <div class="hcmv-footer-brand">
+                    <?php echo esc_html(get_bloginfo('name')); ?>
+                </div>
+                <p>
+                    Cẩm nang sống, học tập & ăn chơi dành cho sinh viên tại Làng Đại học ĐHQG-HCM.
+                    Khám phá mọi thứ bạn cần từ ăn uống, nhà trọ đến kinh nghiệm học tập.
+                </p>
             </div>
+
+            <!-- Cột 2: Khám phá -->
+             <div class="hcmv-footer-col">
+                <h4>KHÁM PHÁ</h4>
+					<ul class="hcmv-footer-menu">
+						<li><a href="<?php echo esc_url(home_url('/an-uong')); ?>">Cẩm nang tân sinh viên</a></li>
+						<li><a href="<?php echo esc_url(home_url('/nha-tro')); ?>">Chỗ ở</a></li>
+						<li><a href="<?php echo esc_url(home_url('/di-lai')); ?>">Đời sống & tiện ích</a></li>
+						<li><a href="<?php echo esc_url(home_url('/hoc-tap')); ?>">Học & làm</a></li>
+					</ul>
+            </div>
+
+            <!-- Cột 3: Cẩm nang -->
+            <div class="hcmv-footer-col">
+                <h4>CẨM NANG</h4>
+                <ul class="hcmv-footer-menu">
+                    <li><a href="<?php echo esc_url(home_url('/tan-sinh-vien')); ?>">Tân sinh viên cần biết</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/chi-phi-sinh-hoat')); ?>">Chi phí sinh hoạt</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/review-quan-an')); ?>">Review quán ăn</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/ky-tuc-xa')); ?>">Ký túc xá</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/checklist-nhap-hoc')); ?>">Checklist nhập học</a></li>
+                </ul>
+            </div>
+
+            <!-- Cột 4: Hỗ trợ -->
+            <div class="hcmv-footer-col">
+                <h4>HỖ TRỢ</h4>
+                <ul class="hcmv-footer-menu">
+                    <li><a href="<?php echo esc_url(home_url('/gioi-thieu')); ?>">Giới thiệu</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/lien-he')); ?>">Liên hệ</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/chinh-sach-bao-mat')); ?>">Chính sách bảo mật</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/dieu-khoan')); ?>">Điều khoản sử dụng</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/sitemap.xml')); ?>">Sitemap</a></li>
+                </ul>
+            </div>
+
+            <!-- Cột 5: Newsletter -->
+            <div class="hcmv-footer-col">
+                <h4>NHẬN TIPS SINH VIÊN</h4>
+                <p class="hcmv-footer-newsletter-desc">
+                    Nhận ngay các tips hữu ích mỗi tuần:
+                    ăn ngon – sống rẻ – học tốt – kiếm tiền dễ
+                </p>
+
+                <form class="hcmv-footer-subscribe" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
+                    <input type="hidden" name="action" value="hcmv_subscribe">
+                    <?php wp_nonce_field('hcmv_subscribe', 'hcmv_nonce'); ?>
+
+                    <div class="hcmv-footer-subscribe-row">
+                        <input
+                            type="email"
+                            name="subscriber_email"
+                            placeholder="Nhập email của bạn..."
+                            required
+                        >
+                        <button type="submit" class="hcmv-footer-subscribe-btn">
+                            Đăng ký
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Social -->
+				<div class="hcmv-footer-socials">
+					<a href="#" class="hcmv-social-icon" aria-label="Facebook">
+						<i class="fab fa-facebook-f"></i>
+					</a>
+					<a href="#" class="hcmv-social-icon" aria-label="TikTok">
+						<i class="fab fa-tiktok"></i>
+					</a>
+					<a href="#" class="hcmv-social-icon" aria-label="YouTube">
+						<i class="fab fa-youtube"></i>
+					</a>
+				</div>
+            </div>
+
+        </div>
+
+            <!-- Copyright -->
+            <div class="hcmv-copyright">
+                © <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. All rights reserved.
+            </div>
+
+        </div>
+
+    </div>
+</footer>
         </footer>
     </div>
 </div>

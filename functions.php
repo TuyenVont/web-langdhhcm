@@ -1065,14 +1065,14 @@ function hcmv_display_hot_topics() {
 
 }
 
-add_action('wp_enqueue_scripts', 'hcmv_enqueue_dark_mode_assets', 20);
+add_action('wp_enqueue_scripts', 'hcmv_enqueue_dark_mode_assets', 99);
 function hcmv_enqueue_dark_mode_assets() {
     $theme_version = wp_get_theme()->get('Version');
 
     wp_enqueue_style(
         'hcmv-dark-mode',
         get_stylesheet_directory_uri() . '/assets/css/dark-mode.css',
-        array(),
+        array('hcmv-landing-child-style'),
         $theme_version
     );
 
@@ -1203,3 +1203,161 @@ function hcmv_render_email_lead_form($atts) {
     <?php
     return ob_get_clean();
 }
+/**
+ * LANGD - Homepage custom blocks
+ */
+
+/**
+ * Tăng lượt xem bài viết
+ */
+function langd_track_post_views() {
+    if (is_admin() || !is_single()) {
+        return;
+    }
+
+    $post_id = get_queried_object_id();
+
+    if (!$post_id || get_post_type($post_id) !== 'post') {
+        return;
+    }
+
+    $views = (int) get_post_meta($post_id, 'langd_post_views', true);
+    $views++;
+
+    update_post_meta($post_id, 'langd_post_views', $views);
+}
+add_action('wp', 'langd_track_post_views');
+
+
+/**
+ * Block: Bắt đầu từ đây
+ */
+function langd_start_here_shortcode() {
+    $featured_ids = array(1, 8, 9, 15);
+
+    $query = new WP_Query(array(
+        'post_type'           => 'post',
+        'post_status'         => 'publish',
+        'posts_per_page'      => 4,
+        'post__in'            => $featured_ids,
+        'orderby'             => 'post__in',
+        'ignore_sticky_posts' => true,
+    ));
+
+    ob_start();
+
+    if ($query->have_posts()) {
+        echo '<section class="hcmv-section">';
+        echo '<div class="hcmv-container">';
+        echo '<div class="hcmv-section-head">';
+        echo '<div>';
+        echo '<h2>Bắt đầu từ đây</h2>';
+        echo '<p>Những bài viết tiêu biểu dành cho người mới.</p>';
+        echo '</div>';
+        echo '</div>';
+
+        echo '<div class="hcmv-post-grid">';
+
+        while ($query->have_posts()) {
+            $query->the_post();
+
+            echo '<a class="hcmv-post" href="' . esc_url(get_permalink()) . '">';
+            echo '<div class="hcmv-post-media">';
+            if (has_post_thumbnail()) {
+                echo get_the_post_thumbnail(get_the_ID(), 'medium_large');
+            } else {
+                echo '<img src="https://via.placeholder.com/800x520?text=Bat+dau+tu+day" alt="' . esc_attr(get_the_title()) . '">';
+            }
+            echo '<span class="hcmv-tag">Bắt đầu từ đây</span>';
+            echo '</div>';
+
+            echo '<div class="hcmv-post-body">';
+            echo '<h3>' . esc_html(get_the_title()) . '</h3>';
+            echo '<p>' . esc_html(wp_trim_words(get_the_excerpt(), 18, '...')) . '</p>';
+            echo '</div>';
+            echo '</a>';
+        }
+
+        echo '</div>';
+        echo '</div>';
+        echo '</section>';
+    }
+
+    wp_reset_postdata();
+    return ob_get_clean();
+}
+add_shortcode('start_here', 'langd_start_here_shortcode');
+
+/**
+ * Block: Bài viết xem nhiều
+ */
+function langd_most_viewed_shortcode() {
+    $query = new WP_Query(array(
+        'post_type'           => 'post',
+        'post_status'         => 'publish',
+        'posts_per_page'      => 4,
+        'meta_key'            => 'langd_post_views',
+        'orderby'             => 'meta_value_num',
+        'order'               => 'DESC',
+        'ignore_sticky_posts' => true,
+    ));
+
+    // Nếu chưa có bài nào có view, lấy bài mới nhất làm fallback
+    if (!$query->have_posts()) {
+        $query = new WP_Query(array(
+            'post_type'           => 'post',
+            'post_status'         => 'publish',
+            'posts_per_page'      => 4,
+            'orderby'             => 'date',
+            'order'               => 'DESC',
+            'ignore_sticky_posts' => true,
+        ));
+    }
+
+    ob_start();
+
+    if ($query->have_posts()) {
+        echo '<section class="hcmv-section">';
+        echo '<div class="hcmv-container">';
+        echo '<div class="hcmv-section-head">';
+        echo '<div>';
+        echo '<h2>Bài viết xem nhiều</h2>';
+        echo '<p>Các bài viết đang được quan tâm nhiều nhất.</p>';
+        echo '</div>';
+        echo '</div>';
+
+        echo '<div class="hcmv-post-grid">';
+
+        while ($query->have_posts()) {
+            $query->the_post();
+            $views = (int) get_post_meta(get_the_ID(), 'langd_post_views', true);
+
+            echo '<a class="hcmv-post" href="' . esc_url(get_permalink()) . '">';
+            echo '<div class="hcmv-post-media">';
+
+            if (has_post_thumbnail()) {
+                echo get_the_post_thumbnail(get_the_ID(), 'medium_large');
+            } else {
+                echo '<img src="https://via.placeholder.com/800x520?text=Xem+nhieu" alt="' . esc_attr(get_the_title()) . '">';
+            }
+
+            echo '<span class="hcmv-tag">Xem nhiều</span>';
+            echo '</div>';
+
+            echo '<div class="hcmv-post-body">';
+            echo '<h3>' . esc_html(get_the_title()) . '</h3>';
+            echo '<p>' . esc_html(wp_trim_words(get_the_excerpt(), 16, '...')) . '</p>';
+            echo '<div class="hcmv-post-meta">' . esc_html($views) . ' lượt xem</div>';
+            echo '</div>';
+            echo '</a>';
+        }
+
+        echo '</div>';
+        echo '</div>';
+        echo '</section>';
+    }
+
+    wp_reset_postdata();
+    return ob_get_clean();
+}
+add_shortcode('most_viewed', 'langd_most_viewed_shortcode');
