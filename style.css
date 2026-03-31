@@ -742,7 +742,7 @@ body.hcmv-homepage-body [data-header*="type-1"] {
 
 .hcmv-footer {
     padding: 60px 0 0;
-    background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+    background: #2c2c2c;
     color: #cbd5f5;
     position: relative;
 }
@@ -782,7 +782,7 @@ body.hcmv-homepage-body [data-header*="type-1"] {
     margin: 0 0 16px;
     font-weight: 800;
     text-transform: uppercase;
-    color: #ffffff;
+    color:#EAEFEF;
     font-size: 13px;
     letter-spacing: .12em;
 }
@@ -800,7 +800,7 @@ body.hcmv-homepage-body [data-header*="type-1"] {
 .hcmv-footer p,
 .hcmv-footer li,
 .hcmv-footer a {
-    color: #6b7280;
+    color: #DDC;
     line-height: 1.8;
     font-size: 15px;
 }
