@@ -1,0 +1,278 @@
+.hcmv-lead-form-section {
+    margin: 40px 0;
+    padding: 24px;
+}
+
+.hcmv-lead-form-wrap {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 28px;
+    align-items: center;
+    background: #2144b5;
+    border-radius: 20px;
+    padding: 32px;
+    color: #fff;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.hcmv-lead-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+
+.hcmv-lead-title {
+    font-size: 32px;
+    line-height: 1.25;
+    margin: 0 0 14px;
+    color: #fff;
+}
+
+.hcmv-lead-desc {
+    font-size: 16px;
+    line-height: 1.7;
+    margin: 0 0 18px;
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.hcmv-lead-points {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.hcmv-lead-points li {
+    margin-bottom: 8px;
+    color: rgba(255, 255, 255, 0.94);
+}
+
+.hcmv-lead-form-box {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px 26px 22px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+}
+
+.hcmv-lead-form-inner {
+    color: #1f2937;
+}
+
+/* "Nhận cập nhật miễn phí" - tiêu đề nhỏ trên cùng */
+.hcmv-lead-form-label {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0 0 16px;
+    color: #111827;
+}
+
+/* Heading từ MailPoet hoặc fallback form */
+.hcmv-lead-form-box form h1,
+.hcmv-lead-form-box form h2,
+.hcmv-lead-form-box form h3 {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: center;
+    margin: 0 0 10px;
+}
+
+/* Mô tả nhỏ trong form */
+.hcmv-lead-form-box form p:not(.hcmv-lead-form-note):not(.hcmv-lead-form-privacy) {
+    font-size: 14px;
+    text-align: center;
+    color: #374151;
+    margin: 0 0 16px;
+    line-height: 1.6;
+}
+
+.hcmv-lead-form-box input[type="email"],
+.hcmv-lead-form-box input[type="text"],
+.hcmv-lead-form-box input[type="submit"],
+.hcmv-lead-form-box button,
+.hcmv-lead-form-box .wp-element-button {
+    width: 100%;
+    border-radius: 999px;
+}
+
+.hcmv-lead-form-box input[type="email"],
+.hcmv-lead-form-box input[type="text"] {
+    min-height: 50px;
+    padding: 0 20px;
+    border: 1.5px solid #e5e7eb;
+    background: #f3f4f6;
+    margin-bottom: 12px;
+    font-size: 15px;
+    display: block;
+}
+
+.hcmv-lead-form-box input[type="email"]:focus,
+.hcmv-lead-form-box input[type="text"]:focus {
+    outline: none;
+    border-color: #1769aa;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(23, 105, 170, 0.12);
+}
+
+.hcmv-lead-form-box input[type="submit"],
+.hcmv-lead-form-box button,
+.hcmv-lead-form-box .wp-element-button {
+    min-height: 52px;
+    border: none;
+    background: #1783f5;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.18s ease, opacity 0.18s ease;
+    display: block;
+    margin-bottom: 14px;
+}
+
+.hcmv-lead-form-box input[type="submit"]:hover,
+.hcmv-lead-form-box button:hover,
+.hcmv-lead-form-box .wp-element-button:hover {
+    transform: translateY(-1px);
+    opacity: 0.92;
+}
+
+/* Dòng bảo mật giữa nút và note */
+.hcmv-lead-form-privacy {
+    font-size: 13px;
+    color: #6b7280;
+    text-align: center;
+    margin: 0 0 10px;
+    line-height: 1.5;
+}
+
+.hcmv-lead-form-note {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #9ca3af;
+    line-height: 1.6;
+    border-top: 1px solid #f3f4f6;
+    padding-top: 10px;
+}
+
+/* Keep lead form colors stable in both light/dark mode */
+html[data-theme="dark"] .hcmv-lead-form-box,
+html[data-theme="light"] .hcmv-lead-form-box,
+.hcmv-lead-form-box {
+    background: #ffffff !important;
+    color: #111827 !important;
+}
+
+html[data-theme="dark"] .hcmv-lead-form-label,
+html[data-theme="light"] .hcmv-lead-form-label,
+.hcmv-lead-form-label {
+    color: #111827 !important;
+}
+
+html[data-theme="dark"] .hcmv-lead-form-box form h1,
+html[data-theme="dark"] .hcmv-lead-form-box form h2,
+html[data-theme="dark"] .hcmv-lead-form-box form h3,
+html[data-theme="dark"] .hcmv-lead-form-box form h4,
+html[data-theme="dark"] .hcmv-lead-form-box form h5,
+html[data-theme="dark"] .hcmv-lead-form-box form h6,
+html[data-theme="light"] .hcmv-lead-form-box form h1,
+html[data-theme="light"] .hcmv-lead-form-box form h2,
+html[data-theme="light"] .hcmv-lead-form-box form h3,
+html[data-theme="light"] .hcmv-lead-form-box form h4,
+html[data-theme="light"] .hcmv-lead-form-box form h5,
+html[data-theme="light"] .hcmv-lead-form-box form h6,
+.hcmv-lead-form-box form h1,
+.hcmv-lead-form-box form h2,
+.hcmv-lead-form-box form h3,
+.hcmv-lead-form-box form h4,
+.hcmv-lead-form-box form h5,
+.hcmv-lead-form-box form h6 {
+    color: #1877f2 !important;
+    opacity: 1 !important;
+}
+
+html[data-theme="dark"] .hcmv-lead-form-box form p,
+html[data-theme="dark"] .hcmv-lead-form-box form label,
+html[data-theme="dark"] .hcmv-lead-form-box form span,
+html[data-theme="dark"] .hcmv-lead-form-box form div,
+html[data-theme="light"] .hcmv-lead-form-box form p,
+html[data-theme="light"] .hcmv-lead-form-box form label,
+html[data-theme="light"] .hcmv-lead-form-box form span,
+html[data-theme="light"] .hcmv-lead-form-box form div,
+.hcmv-lead-form-box form p,
+.hcmv-lead-form-box form label,
+.hcmv-lead-form-box form span,
+.hcmv-lead-form-box form div {
+    color: #111827 !important;
+    opacity: 1 !important;
+}
+
+html[data-theme="dark"] .hcmv-lead-form-box input[type="email"],
+html[data-theme="dark"] .hcmv-lead-form-box input[type="text"],
+html[data-theme="light"] .hcmv-lead-form-box input[type="email"],
+html[data-theme="light"] .hcmv-lead-form-box input[type="text"],
+.hcmv-lead-form-box input[type="email"],
+.hcmv-lead-form-box input[type="text"] {
+    background: #f3f4f6 !important;
+    color: #111827 !important;
+    border: 1px solid #d1d5db !important;
+}
+
+html[data-theme="dark"] .hcmv-lead-form-box input[type="email"]::placeholder,
+html[data-theme="dark"] .hcmv-lead-form-box input[type="text"]::placeholder,
+html[data-theme="light"] .hcmv-lead-form-box input[type="email"]::placeholder,
+html[data-theme="light"] .hcmv-lead-form-box input[type="text"]::placeholder,
+.hcmv-lead-form-box input[type="email"]::placeholder,
+.hcmv-lead-form-box input[type="text"]::placeholder {
+    color: #9ca3af !important;
+    opacity: 1 !important;
+}
+
+html[data-theme="dark"] .hcmv-lead-form-box input[type="submit"],
+html[data-theme="dark"] .hcmv-lead-form-box button,
+html[data-theme="dark"] .hcmv-lead-form-box .wp-element-button,
+html[data-theme="light"] .hcmv-lead-form-box input[type="submit"],
+html[data-theme="light"] .hcmv-lead-form-box button,
+html[data-theme="light"] .hcmv-lead-form-box .wp-element-button,
+.hcmv-lead-form-box input[type="submit"],
+.hcmv-lead-form-box button,
+.hcmv-lead-form-box .wp-element-button {
+    background: #1783f5 !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+html[data-theme="dark"] .hcmv-lead-form-note,
+html[data-theme="light"] .hcmv-lead-form-note,
+.hcmv-lead-form-note {
+    color: #6b7280 !important;
+}
+
+@media (max-width: 991px) {
+    .hcmv-lead-form-wrap {
+        grid-template-columns: 1fr;
+        padding: 24px;
+    }
+
+    .hcmv-lead-title {
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 640px) {
+    .hcmv-lead-form-section {
+        padding: 12px;
+    }
+
+    .hcmv-lead-form-wrap {
+        border-radius: 16px;
+        gap: 20px;
+        padding: 18px;
+    }
+
+    .hcmv-lead-title {
+        font-size: 22px;
+    }
+}
