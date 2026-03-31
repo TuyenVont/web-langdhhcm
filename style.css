@@ -201,28 +201,96 @@ body.hcmv-homepage-body [data-header*="type-1"] {
 .hcmv-actions {
     display: flex;
     align-items: center;
-    gap: 12px;
+    justify-content: flex-end;
+    width: 100%;
 }
 
-.hcmv-search {
+.hcmv-search-clean {
     display: flex;
     align-items: center;
-    gap: 8px;
-    background: #f4f6f9;
-    border: 1px solid #e8eaed;
-    min-width: 260px;
-    padding: 0 16px;
-    height: 44px;
+    gap: 14px;
+    width: min(100%, 700px);
+    height: 72px;
+    padding: 0 22px;
     border-radius: 999px;
+    background: #edf4f3;
+    border: none;
+    box-shadow: none;
 }
 
-.hcmv-search input {
+.hcmv-search-icon {
+    flex-shrink: 0;
+    font-size: 28px;
+    line-height: 1;
+    color: #8a959b;
+}
+
+.hcmv-search-clean input[type="search"] {
+    flex: 1;
+    width: auto;
     border: 0;
     outline: 0;
     background: transparent;
-    width: 100%;
-    font-size: 14px;
-    color: #334155;
+    font-size: 24px;
+    color: #44515a;
+    padding: 0;
+    box-shadow: none;
+}
+
+.hcmv-search-clean input[type="search"]::placeholder {
+    color: #7f8b92;
+}
+
+.hcmv-search-clear {
+    flex-shrink: 0;
+    border: 0;
+    background: transparent;
+    color: #5f666b;
+    font-size: 34px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hcmv-search-clear:hover {
+    opacity: .75;
+}
+
+.hcmv-search-clean input::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+@media (max-width: 960px) {
+    .hcmv-actions {
+        width: 100%;
+    }
+
+    .hcmv-search-clean {
+        width: 100%;
+        height: 58px;
+        padding: 0 18px;
+        gap: 10px;
+    }
+
+    .hcmv-search-icon {
+        font-size: 22px;
+    }
+
+    .hcmv-search-clean input[type="search"] {
+        font-size: 18px;
+    }
+
+    .hcmv-search-clear {
+        font-size: 28px;
+        width: 34px;
+        height: 34px;
+    }
 }
 
 .hcmv-btn {
@@ -680,64 +748,234 @@ body.hcmv-homepage-body [data-header*="type-1"] {
     font-size: 16px;
 }
 .hcmv-newsletter {
-    padding: 48px 0 58px;
+    padding: 56px 0 70px;
 }
 
-.hcmv-newsletter-box {
-    background: #3b7d32; /* Màu xanh lá chủ đạo */
-    color: #fff;
-    border-radius: 30px;
-    padding: 56px 24px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+.hcmv-newsletter-split {
+    background: #2448c8;
+    border-radius: 24px;
+    padding: 48px 44px 48px 52px;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 40px;
+    align-items: center;
+    box-shadow: 0 18px 40px rgba(20, 45, 130, .18);
 }
 
-/* Các vòng tròn trang trí ẩn sau nền */
-.hcmv-newsletter-box::before,
-.hcmv-newsletter-box::after {
-    content: "";
-    position: absolute;
-    border-radius: 999px;
-    background: rgba(255,255,255,.07);
-}
-
-.hcmv-newsletter-box::before { width: 320px; height: 320px; right: -60px; top: -80px; }
-.hcmv-newsletter-box::after { width: 220px; height: 220px; left: -80px; bottom: -120px; }
-
-.hcmv-newsletter-box h2 {
-    position: relative;
-    z-index: 1;
-    margin: 0 0 12px;
-    font-size: clamp(34px, 4vw, 60px);
-    line-height: .98;
-    letter-spacing: -.04em;
-}
-
-.hcmv-subscribe-form {
-    position: relative;
-    z-index: 1;
+.hcmv-newsletter-left {
+    color: #ffffff;
     display: flex;
-    gap: 14px;
+    flex-direction: column;
     justify-content: center;
-    flex-wrap: wrap;
 }
 
-.hcmv-subscribe-form input[type="email"] {
-    min-width: min(100%, 420px);
-    height: 56px;
-    border: 0;
-    outline: 0;
-    border-radius: 16px;
-    padding: 0 18px;
+.hcmv-newsletter-badge {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.15);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 22px;
+    letter-spacing: .01em;
+}
+
+.hcmv-newsletter-left h2 {
+    margin: 0 0 16px;
+    color: #ffffff;
+    font-size: clamp(28px, 3vw, 38px);
+    line-height: 1.15;
+    letter-spacing: -.02em;
+    font-weight: 800;
+    max-width: 560px;
+}
+
+.hcmv-newsletter-left-desc {
+    margin: 0 0 24px;
+    color: rgba(255,255,255,.85);
     font-size: 15px;
+    line-height: 1.7;
+    max-width: 520px;
 }
 
-.hcmv-subscribe-status {
+.hcmv-newsletter-benefits {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 10px;
+}
+
+.hcmv-newsletter-benefits li {
     position: relative;
-    z-index: 1;
-    margin-top: 16px;
+    padding-left: 20px;
+    color: rgba(255,255,255,.9);
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+.hcmv-newsletter-benefits li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: -2px;
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 1;
+}
+
+/* Card form bên phải */
+.hcmv-newsletter-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 32px 28px 28px;
+    box-shadow: 0 8px 32px rgba(15, 23, 42, .14);
+    color: #111827;
+    display: flex;
+    flex-direction: column;
+}
+
+.hcmv-newsletter-card h3 {
+    margin: 0 0 18px;
+    font-size: 18px;
+    line-height: 1.3;
     font-weight: 700;
+    color: #111827;
+    text-align: left;
+}
+
+.hcmv-newsletter-card-intro {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.hcmv-newsletter-card-intro strong {
+    display: block;
+    color: #1d6ef5;
+    font-size: 18px;
+    line-height: 1.5;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.hcmv-newsletter-card-intro p {
+    margin: 0;
+    color: #111827;
+    font-size: 14px;
+    line-height: 1.6;
+    font-weight: 600;
+}
+
+.hcmv-subscribe-form-card {
+    display: grid;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.hcmv-subscribe-form-card input[type="email"] {
+    width: 100%;
+    height: 52px;
+    border: 1.5px solid #e5e7eb;
+    outline: 0;
+    border-radius: 999px;
+    background: #f9fafb;
+    color: #374151;
+    padding: 0 20px;
+    font-size: 15px;
+    box-shadow: none;
+    transition: border-color .18s ease;
+}
+
+.hcmv-subscribe-form-card input[type="email"]:focus {
+    border-color: #2f63ea;
+    background: #fff;
+}
+
+.hcmv-subscribe-form-card input[type="email"]::placeholder {
+    color: #9ca3af;
+}
+
+.hcmv-subscribe-form-card button {
+    width: 100%;
+    height: 52px;
+    border: 0;
+    border-radius: 999px;
+    background: #1d6ef5;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(29, 110, 245, .30);
+    transition: background .18s ease, transform .18s ease;
+}
+
+.hcmv-subscribe-form-card button:hover {
+    background: #1558d6;
+    transform: translateY(-1px);
+}
+
+.hcmv-subscribe-status-card {
+    margin-top: 12px;
+    text-align: center;
+    font-weight: 700;
+    color: #15803d;
+    font-size: 14px;
+}
+
+.hcmv-subscribe-status-card--error {
+    color: #dc2626;
+}
+
+.hcmv-newsletter-note {
+    margin: 14px 0 8px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.hcmv-newsletter-terms {
+    margin: 0;
+    text-align: center;
+    color: #9ca3af;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+@media (max-width: 1100px) {
+    .hcmv-newsletter-split {
+        grid-template-columns: 1fr;
+        padding: 36px 28px;
+    }
+}
+
+@media (max-width: 640px) {
+    .hcmv-newsletter-split {
+        padding: 24px 18px;
+        border-radius: 18px;
+    }
+
+    .hcmv-newsletter-left h2 {
+        font-size: 26px;
+    }
+
+    .hcmv-newsletter-card {
+        border-radius: 16px;
+        padding: 22px 18px;
+    }
+
+    .hcmv-newsletter-card-intro strong {
+        font-size: 16px;
+    }
+
+    .hcmv-subscribe-form-card input[type="email"],
+    .hcmv-subscribe-form-card button {
+        height: 48px;
+    }
 }
 
 .hcmv-footer {
@@ -1745,4 +1983,25 @@ body.hcmv-single-post-body h1.hcmv-post-title {
     height: 100%;
     min-height: 200px;
     background: #e2e8f0;
+}
+
+/* Subscribe notification messages */
+.hcmv-subscribe-msg {
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.hcmv-subscribe-ok {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+.hcmv-subscribe-err {
+    background: #fef9c3;
+    color: #854d0e;
+    border: 1px solid #fde68a;
 }

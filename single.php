@@ -48,9 +48,7 @@ while (have_posts()) : the_post();
             <div class="hcmv-container hcmv-topbar-inner">
                 <a class="hcmv-brand-wrap" href="<?php echo esc_url($home_url); ?>">
                     <?php if ($logo_url) : ?>
-                        <span class="hcmv-brand-logo">
-                            <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr($site_name); ?>">
-                        </span>
+                        <span class="hcmv-brand-logo"><img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr($site_name); ?>"></span>
                     <?php endif; ?>
                     <span class="hcmv-brand"><?php echo esc_html($site_name); ?></span>
                 </a>
@@ -65,21 +63,39 @@ while (have_posts()) : the_post();
                             'fallback_cb'    => false,
                         ));
                     } else {
-                        echo '<ul class="hcmv-nav-menu"><li><a href="' . esc_url(hcmv_child_posts_url()) . '">Handbooks</a></li><li><a href="#">Resources</a></li><li><a href="' . esc_url(hcmv_child_posts_url()) . '">News</a></li></ul>';
+                        echo '<ul class="hcmv-nav-menu">';
+                        echo '<li><a href="#bai-viet">Ăn uống</a></li>';
+                        echo '<li><a href="#kham-pha">Ký túc xá</a></li>';
+                        echo '<li><a href="#kham-pha">Đi lại</a></li>';
+                        echo '<li><a href="#bai-viet">Học tập</a></li>';
+                        echo '<li><a href="#faq">Việc làm</a></li>';
+                        echo '</ul>';
                     }
                     ?>
                 </nav>
 
                 <div class="hcmv-actions">
-                    <form class="hcmv-search" action="<?php echo esc_url($home_url); ?>" method="get">
-                        <span aria-hidden="true">🔍</span>
-                        <input type="search" name="s" placeholder="<?php echo esc_attr($home_options['search_placeholder']); ?>">
-                    </form>
+    <form class="hcmv-search hcmv-search-clean" action="<?php echo esc_url($home_url); ?>" method="get" role="search">
+        <span class="hcmv-search-icon" aria-hidden="true">⌕</span>
 
-                    <a class="hcmv-btn hcmv-btn-primary" href="<?php echo esc_url(hcmv_child_posts_url()); ?>">
-                        Bắt đầu từ đây
-                    </a>
-                </div>
+        <input
+            type="search"
+            name="s"
+            value="<?php echo esc_attr(get_search_query()); ?>"
+            placeholder="<?php echo esc_attr($home_options['search_placeholder']); ?>"
+            aria-label="Tìm kiếm"
+        >
+
+        <button
+            type="button"
+            class="hcmv-search-clear"
+            aria-label="Xóa từ khóa"
+            onclick="this.form.s.value=''; this.form.s.focus();"
+        >
+            ✕
+        </button>
+    </form>
+</div>
             </div>
         </header>
 
@@ -211,6 +227,9 @@ while (have_posts()) : the_post();
             </section>
         </main>
 
+        <footer class="hcmv-footer">
+    <div class="hcmv-container">
+
         <div class="hcmv-footer-grid">
 
             <!-- Cột 1: Brand -->
@@ -267,8 +286,17 @@ while (have_posts()) : the_post();
                     ăn ngon – sống rẻ – học tốt – kiếm tiền dễ
                 </p>
 
+                <?php
+                $sub_state = isset($_GET['subscribed']) ? sanitize_text_field(wp_unslash($_GET['subscribed'])) : '';
+                $options   = hcmv_child_get_options();
+                if ('ok' === $sub_state) : ?>
+                    <p class="hcmv-subscribe-msg hcmv-subscribe-ok"><?php echo esc_html($options['newsletter_success']); ?></p>
+                <?php elseif ('invalid' === $sub_state) : ?>
+                    <p class="hcmv-subscribe-msg hcmv-subscribe-err"><?php echo esc_html($options['newsletter_invalid']); ?></p>
+                <?php endif; ?>
                 <form class="hcmv-footer-subscribe" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
                     <input type="hidden" name="action" value="hcmv_subscribe">
+                    <input type="hidden" name="redirect_to" value="<?php echo esc_url(home_url(add_query_arg(array()))); ?>">
                     <?php wp_nonce_field('hcmv_subscribe', 'hcmv_nonce'); ?>
 
                     <div class="hcmv-footer-subscribe-row">
@@ -309,9 +337,6 @@ while (have_posts()) : the_post();
 
     </div>
 </footer>
-        </footer>
-    </div>
-</div>
 
 <?php wp_footer(); ?>
 </body>

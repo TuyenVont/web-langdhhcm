@@ -7,7 +7,7 @@ function hcmv_child_default_options() {
     $site_name = get_bloginfo('name') ? get_bloginfo('name') : 'HCM City University Village';
 
     return array(
-        'search_placeholder'          => 'Tìm kiếm kinh nghiệm...',
+        'search_placeholder'          => 'Nhập từ khóa...',
         'header_cta_text'             => 'Bắt đầu từ đây',
         'header_cta_url'              => '#bai-viet',
         'hero_badge'                  => 'Guide 2024',
@@ -1272,9 +1272,9 @@ function langd_start_here_shortcode() {
             $query->the_post();
 
             echo '<a class="hcmv-post" href="' . esc_url(get_permalink()) . '">';
-            echo '<div class="hcmv-post-media">';
-            echo hcmv_child_post_media_html(get_the_ID(), 'medium_large', 'Bắt đầu từ đây');
-            echo '</div>';
+           echo '<div class="hcmv-post-media">';
+echo hcmv_child_post_media_html(get_the_ID(), 'medium_large', 'Bắt đầu từ đây');
+echo '</div>';
 
             echo '<div class="hcmv-post-body">';
             echo '<h3>' . esc_html(get_the_title()) . '</h3>';
@@ -1338,17 +1338,11 @@ function langd_most_viewed_shortcode() {
             $views = (int) get_post_meta(get_the_ID(), 'langd_post_views', true);
 
             echo '<a class="hcmv-post" href="' . esc_url(get_permalink()) . '">';
-            echo '<div class="hcmv-post-media">';
+            
 
-            if (has_post_thumbnail()) {
-                echo get_the_post_thumbnail(get_the_ID(), 'medium_large');
-            } else {
-                echo '<img src="https://via.placeholder.com/800x520?text=Xem+nhieu" alt="' . esc_attr(get_the_title()) . '">';
-            }
-
-            echo '<span class="hcmv-tag">Xem nhiều</span>';
-            echo '</div>';
-
+           echo '<div class="hcmv-post-media">';
+echo hcmv_child_post_media_html(get_the_ID(), 'medium_large', 'Xem nhiều');
+echo '</div>';
             echo '<div class="hcmv-post-body">';
             echo '<h3>' . esc_html(get_the_title()) . '</h3>';
             echo '<p>' . esc_html(wp_trim_words(get_the_excerpt(), 16, '...')) . '</p>';
@@ -1366,3 +1360,73 @@ function langd_most_viewed_shortcode() {
     return ob_get_clean();
 }
 add_shortcode('most_viewed', 'langd_most_viewed_shortcode');
+add_shortcode('hcmv_email_lead_form', 'hcmv_render_email_lead_form');
+function hcmv_render_email_lead_form($atts) {
+    $atts = shortcode_atts(array(
+        'title' => 'Nhận tin mới dành riêng cho sinh viên Làng Đại Học',
+        'desc' => 'Đăng ký email để nhận cập nhật về chỗ ở, điện nước, quán ăn, việc làm thêm và các thông báo hữu ích.',
+        'button_text' => 'Nhận cập nhật miễn phí',
+        'form_shortcode' => '[mailpoet_form id="1"]'
+    ), $atts, 'hcmv_email_lead_form');
+
+    ob_start();
+    ?>
+    <section class="hcmv-lead-form-section">
+        <div class="hcmv-lead-form-wrap">
+            <div class="hcmv-lead-form-content">
+                <span class="hcmv-lead-badge">Miễn phí • Không spam</span>
+                <h2 class="hcmv-lead-title"><?php echo esc_html($atts['title']); ?></h2>
+                <p class="hcmv-lead-desc"><?php echo esc_html($atts['desc']); ?></p>
+
+                <ul class="hcmv-lead-points">
+                    <li>Nhận tin mới nhanh hơn</li>
+                    <li>Ưu tiên nội dung hữu ích cho sinh viên</li>
+                    <li>Hủy đăng ký bất cứ lúc nào</li>
+                </ul>
+            </div>
+
+            <div class="hcmv-lead-form-box">
+                <div class="hcmv-lead-form-inner">
+                    <p class="hcmv-lead-form-label"><?php echo esc_html($atts['button_text']); ?></p>
+                    <?php
+                    $form_html = do_shortcode($atts['form_shortcode']);
+                    if (trim($form_html) === '') :
+                        // Fallback nếu MailPoet chưa active
+                        $sub_state = isset($_GET['subscribed']) ? sanitize_text_field(wp_unslash($_GET['subscribed'])) : '';
+                        $opts      = hcmv_child_get_options();
+                        if ('ok' === $sub_state) :
+                    ?>
+                        <p class="hcmv-subscribe-msg hcmv-subscribe-ok"><?php echo esc_html($opts['newsletter_success']); ?></p>
+                    <?php elseif ('invalid' === $sub_state) : ?>
+                        <p class="hcmv-subscribe-msg hcmv-subscribe-err"><?php echo esc_html($opts['newsletter_invalid']); ?></p>
+                    <?php endif; ?>
+                    <form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
+                        <input type="hidden" name="action" value="hcmv_subscribe">
+                        <input type="hidden" name="redirect_to" value="<?php echo esc_url(home_url(add_query_arg(array()))); ?>">
+                        <?php wp_nonce_field('hcmv_subscribe', 'hcmv_nonce'); ?>
+                        <input type="email" name="subscriber_email" placeholder="<?php echo esc_attr($opts['newsletter_placeholder']); ?>" required>
+                        <input type="submit" value="<?php echo esc_attr($opts['newsletter_button_text']); ?>">
+                    </form>
+                    <?php else : ?>
+                        <?php echo $form_html; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+                    <?php endif; ?>
+                    <p class="hcmv-lead-form-privacy">Chúng tôi sẽ bảo đảm thông tin của bạn được bảo mật.</p>
+                    <p class="hcmv-lead-form-note">Bằng việc đăng ký, bạn đồng ý nhận email cập nhật từ HCMV.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <?php
+    return ob_get_clean();
+}
+add_action('wp_enqueue_scripts', 'hcmv_enqueue_lead_form_assets', 20);
+function hcmv_enqueue_lead_form_assets() {
+    $theme_version = wp_get_theme()->get('Version');
+
+    wp_enqueue_style(
+        'hcmv-lead-form',
+        get_stylesheet_directory_uri() . '/assets/css/lead-form.css',
+        array(),
+        $theme_version
+    );
+}

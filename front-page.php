@@ -56,12 +56,27 @@ $copyright       = str_replace('%year%', date_i18n('Y'), $options['footer_copyri
                 </nav>
 
                 <div class="hcmv-actions">
-                    <form class="hcmv-search" action="<?php echo esc_url($home_url); ?>" method="get">
-                        <span aria-hidden="true">🔍</span>
-                        <input type="search" name="s" placeholder="<?php echo esc_attr($options['search_placeholder']); ?>">
-                    </form>
-                    <a class="hcmv-btn hcmv-btn-primary hcmv-btn-header" href="<?php echo esc_url($options['header_cta_url']); ?>">Tìm kiếm</a>
-                </div>
+    <form class="hcmv-search hcmv-search-clean" action="<?php echo esc_url($home_url); ?>" method="get" role="search">
+        <span class="hcmv-search-icon" aria-hidden="true">⌕</span>
+
+        <input
+            type="search"
+            name="s"
+            value="<?php echo esc_attr(get_search_query()); ?>"
+            placeholder="<?php echo esc_attr($options['search_placeholder']); ?>"
+            aria-label="Tìm kiếm"
+        >
+
+        <button
+            type="button"
+            class="hcmv-search-clear"
+            aria-label="Xóa từ khóa"
+            onclick="this.form.s.value=''; this.form.s.focus();"
+        >
+            ✕
+        </button>
+    </form>
+</div>
             </div>
         </header>
 
@@ -197,40 +212,9 @@ $copyright       = str_replace('%year%', date_i18n('Y'), $options['footer_copyri
                 </div>
             </section>
 
-            <section class="hcmv-newsletter">
+    <section class="hcmv-newsletter">
     <div class="hcmv-container">
-        <div class="hcmv-newsletter-box">
-            <h2><?php echo esc_html($options['newsletter_title']); ?></h2>
-            <p><?php echo esc_html($options['newsletter_desc']); ?></p>
-
-            <form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post" class="hcmv-subscribe-form">
-                <input type="hidden" name="action" value="hcmv_subscribe">
-                
-                <?php wp_nonce_field('hcmv_subscribe', 'hcmv_nonce'); ?>
-                
-                <input type="hidden" name="redirect_to" value="<?php echo esc_url(home_url($wp->request)); ?>">
-
-                <input 
-                    type="email" 
-                    name="subscriber_email" 
-                    placeholder="<?php echo esc_attr($options['newsletter_placeholder']); ?>" 
-                    required
-                >
-                <button type="submit" class="hcmv-btn hcmv-btn-primary">
-                    <?php echo esc_html($options['newsletter_button_text']); ?>
-                </button>
-            </form>
-
-            <?php if ($status === 'ok') : ?>
-                <div class="hcmv-subscribe-status">
-                    <?php echo esc_html($options['newsletter_success']); ?>
-                </div>
-            <?php elseif ($status === 'invalid') : ?>
-                <div class="hcmv-subscribe-status" style="color: #ffeb3b;">
-                    <?php echo esc_html($options['newsletter_invalid']); ?>
-                </div>
-            <?php endif; ?>
-        </div>
+        <?php echo do_shortcode('[hcmv_email_lead_form]'); ?>
     </div>
 </section>
         </main>
@@ -294,8 +278,16 @@ $copyright       = str_replace('%year%', date_i18n('Y'), $options['footer_copyri
                     ăn ngon – sống rẻ – học tốt – kiếm tiền dễ
                 </p>
 
+                <?php
+                $sub_state = isset($_GET['subscribed']) ? sanitize_text_field(wp_unslash($_GET['subscribed'])) : '';
+                if ('ok' === $sub_state) : ?>
+                    <p class="hcmv-subscribe-msg hcmv-subscribe-ok"><?php echo esc_html($options['newsletter_success']); ?></p>
+                <?php elseif ('invalid' === $sub_state) : ?>
+                    <p class="hcmv-subscribe-msg hcmv-subscribe-err"><?php echo esc_html($options['newsletter_invalid']); ?></p>
+                <?php endif; ?>
                 <form class="hcmv-footer-subscribe" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
                     <input type="hidden" name="action" value="hcmv_subscribe">
+                    <input type="hidden" name="redirect_to" value="<?php echo esc_url(home_url(add_query_arg(array()))); ?>">
                     <?php wp_nonce_field('hcmv_subscribe', 'hcmv_nonce'); ?>
 
                     <div class="hcmv-footer-subscribe-row">
