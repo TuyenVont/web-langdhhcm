@@ -125,6 +125,54 @@ function hcmv_child_svg_placeholder($title = 'University Village', $bg1 = '#dbea
     return 'data:image/svg+xml;base64,' . base64_encode($svg);
 }
 
+/**
+ * Lấy URL ảnh bài viết theo thứ tự ưu tiên:
+ * 1. Featured image
+ * 2. Ảnh đầu tiên trong nội dung
+ * 3. null (không có ảnh)
+ */
+function hcmv_child_get_post_image($post_id, $size = 'large') {
+    // 1. Featured image
+    $url = get_the_post_thumbnail_url($post_id, $size);
+    if ($url) return $url;
+
+    // 2. Ảnh đầu tiên trong nội dung
+    $post    = get_post($post_id);
+    $content = $post ? $post->post_content : '';
+    if (preg_match('/<img[^>]+src=["\']([^"\']+)["\']/', $content, $matches)) {
+        return $matches[1];
+    }
+
+    return null;
+}
+
+/**
+ * Trả về HTML khối media cho bài viết.
+ * Có ảnh → <img>, không có → khối gradient đẹp với icon chữ cái + category.
+ */
+function hcmv_child_post_media_html($post_id, $size = 'large', $tag_label = '') {
+    $url = hcmv_child_get_post_image($post_id, $size);
+
+    // Màu gradient theo category
+    $categories = get_the_category($post_id);
+    $cat_name   = !empty($categories) ? $categories[0]->name : 'Bài viết';
+
+    // Chữ cái đầu của tiêu đề
+    $title      = get_the_title($post_id);
+
+    $tag_html = $tag_label
+        ? '<span class="hcmv-tag">' . esc_html($tag_label) . '</span>'
+        : '<span class="hcmv-tag">' . esc_html($cat_name) . '</span>';
+
+    if ($url) {
+        return '<img src="' . esc_url($url) . '" alt="' . esc_attr($title) . '" loading="lazy">'
+             . $tag_html;
+    }
+
+    return '<div class="hcmv-post-no-img"></div>'
+         . $tag_html;
+}
+
 add_action('after_setup_theme', function () {
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
@@ -504,8 +552,8 @@ function hcmv_child_render_settings_page() {
 
 add_action('admin_post_nopriv_hcmv_subscribe', 'hcmv_child_handle_subscribe');
 add_action('admin_post_hcmv_subscribe', 'hcmv_child_handle_subscribe');
-
 function hcmv_child_handle_subscribe() {
+    // Kiểm tra mã bảo mật Nonce
     if (!isset($_POST['hcmv_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['hcmv_nonce'])), 'hcmv_subscribe')) {
         wp_die('Yêu cầu không hợp lệ.');
     }
@@ -513,22 +561,23 @@ function hcmv_child_handle_subscribe() {
     $email    = isset($_POST['subscriber_email']) ? sanitize_email(wp_unslash($_POST['subscriber_email'])) : '';
     $redirect = isset($_POST['redirect_to']) ? esc_url_raw(wp_unslash($_POST['redirect_to'])) : home_url('/');
 
+    // Kiểm tra email hợp lệ
     if (!$email || !is_email($email)) {
         wp_safe_redirect(add_query_arg('subscribed', 'invalid', $redirect));
         exit;
     }
 
+    // Lấy danh sách email cũ và thêm email mới nếu chưa tồn tại
     $subscribers = get_option('hcmv_child_subscribers', array());
-
     if (!in_array($email, $subscribers, true)) {
         $subscribers[] = $email;
         update_option('hcmv_child_subscribers', $subscribers, false);
     }
 
+    // Chuyển hướng về trang trước với thông báo thành công
     wp_safe_redirect(add_query_arg('subscribed', 'ok', $redirect));
     exit;
 }
-
 function hcmv_child_posts_url() {
     $page_for_posts = (int) get_option('page_for_posts');
     if ($page_for_posts) {
@@ -559,15 +608,13 @@ function hcmv_child_get_posts_data() {
         while ($query->have_posts()) {
             $query->the_post();
 
-            $thumb = get_the_post_thumbnail_url(get_the_ID(), 'large');
-            if (!$thumb) {
-                $thumb = hcmv_child_svg_placeholder(get_the_title(), '#dbeafe', '#eff6ff', '#2563eb');
-            }
+            $thumb = hcmv_child_get_post_image(get_the_ID(), 'large');
 
             $terms = get_the_category();
             $tag   = !empty($terms) ? $terms[0]->name : 'Tin mới';
 
             $items[] = array(
+                'id'      => get_the_ID(),
                 'title'   => get_the_title(),
                 'url'     => get_permalink(),
                 'excerpt' => wp_trim_words(get_the_excerpt() ? get_the_excerpt() : wp_strip_all_tags(get_the_content()), 18, '...'),
@@ -1195,6 +1242,18 @@ function langd_start_here_shortcode() {
         'ignore_sticky_posts' => true,
     ));
 
+    // Fallback: nếu không tìm thấy bài theo ID, lấy 4 bài mới nhất
+    if (!$query->have_posts()) {
+        $query = new WP_Query(array(
+            'post_type'           => 'post',
+            'post_status'         => 'publish',
+            'posts_per_page'      => 4,
+            'orderby'             => 'date',
+            'order'               => 'DESC',
+            'ignore_sticky_posts' => true,
+        ));
+    }
+
     ob_start();
 
     if ($query->have_posts()) {
@@ -1214,12 +1273,7 @@ function langd_start_here_shortcode() {
 
             echo '<a class="hcmv-post" href="' . esc_url(get_permalink()) . '">';
             echo '<div class="hcmv-post-media">';
-            if (has_post_thumbnail()) {
-                echo get_the_post_thumbnail(get_the_ID(), 'medium_large');
-            } else {
-                echo '<img src="https://via.placeholder.com/800x520?text=Bat+dau+tu+day" alt="' . esc_attr(get_the_title()) . '">';
-            }
-            echo '<span class="hcmv-tag">Bắt đầu từ đây</span>';
+            echo hcmv_child_post_media_html(get_the_ID(), 'medium_large', 'Bắt đầu từ đây');
             echo '</div>';
 
             echo '<div class="hcmv-post-body">';
