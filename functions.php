@@ -187,6 +187,47 @@ add_action('after_setup_theme', function () {
     ));
 });
 
+/**
+ * SEO title mapping — gom tất cả custom title vào 1 chỗ.
+ * Dùng filter document_title_parts để không hardcode <title> trong template.
+ */
+add_filter('document_title_parts', function ($title) {
+    $site_name = get_bloginfo('name');
+
+    // Map theo slug/path
+    $uri = isset($_SERVER['REQUEST_URI']) ? strtok(sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])), '?') : '';
+    $uri = rtrim($uri, '/');
+
+    $map = array(
+        '/chinh-sach-bao-mat' => array(
+            'title'   => 'Chính sách bảo mật Làng Đại học HCM',
+            'tagline' => '',
+        ),
+        '/dieu-khoan-su-dung' => array(
+            'title'   => 'Điều khoản sử dụng Làng Đại học HCM',
+            'tagline' => '',
+        ),
+        '/lien-he' => array(
+            'title' => 'Liên hệ Làng Đại học HCM Hỗ trợ & hợp tác',
+        ),
+        '/gioi-thieu' => array(
+            'title' => 'Về chúng tôi Cẩm nang Làng Đại học HCM cho sinh viên',
+        ),
+    );
+
+    if (isset($map[$uri])) {
+        $title['title'] = $map[$uri]['title'];
+        if (!empty($map[$uri]['tagline'])) {
+            $title['tagline'] = $map[$uri]['tagline'];
+        } else {
+            unset($title['tagline']);
+        }
+        unset($title['site']);
+    }
+
+    return $title;
+});
+
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('blocksy-parent-style', get_template_directory_uri() . '/style.css', array(), wp_get_theme(get_template())->get('Version'));
     wp_enqueue_style('hcmv-landing-child-style', get_stylesheet_uri(), array('blocksy-parent-style'), wp_get_theme()->get('Version'));

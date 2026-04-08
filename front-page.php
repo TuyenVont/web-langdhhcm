@@ -124,7 +124,7 @@ $copyright       = str_replace('%year%', date_i18n('Y'), $options['footer_copyri
                             <h2><?php echo esc_html($options['latest_posts_title']); ?></h2>
                             <p><?php echo esc_html($options['latest_posts_desc']); ?></p>
                         </div>
-                        <a class="hcmv-btn hcmv-btn-secondary" href="<?php echo esc_url(hcmv_child_posts_url()); ?>"><?php echo esc_html($options['latest_posts_button_text']); ?></a>
+                        <a class="hcmv-btn hcmv-btn-secondary" href="<?php echo esc_url(home_url('/tat-ca-bai-viet/')); ?>"><?php echo esc_html($options['latest_posts_button_text']); ?></a>
                     </div>
 
                     <div class="hcmv-post-grid">
@@ -188,7 +188,7 @@ $copyright       = str_replace('%year%', date_i18n('Y'), $options['footer_copyri
                             </div>
                         </div>
                         <div class="hcmv-area-map">
-                            <a class="hcmv-map-cta" href="<?php echo esc_url($options['explore_button_url']); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($options['explore_button_text']); ?></a>
+                            <a class="hcmv-map-cta" href="<?php echo esc_url($options['explore_button_url']); ?>" target="_blank" rel="nofollow noopener noreferrer"><?php echo esc_html($options['explore_button_text']); ?></a>
                         </div>
                     </div>
                 </div>
@@ -239,10 +239,10 @@ $copyright       = str_replace('%year%', date_i18n('Y'), $options['footer_copyri
              <div class="hcmv-footer-col">
     <h4>KHÁM PHÁ</h4>
     <ul class="hcmv-footer-menu">
-        <li><a href="<?php echo esc_url(home_url('/index.php/category/di-chuyen-tien-ich/')); ?>">Di chuyển & tiện ích</a></li>
-        <li><a href="<?php echo esc_url(home_url('/index.php/category/doi-song-sinh-vien/')); ?>">Đời sống sinh viên</a></li>
-        <li><a href="<?php echo esc_url(home_url('/index.php/category/hoc-tap-phat-trien-ky-nang/')); ?>">Học tập & phát triển kỹ năng</a></li>
-        <li><a href="<?php echo esc_url(home_url('/index.php/category/viec-lam-co-hoi-sinh-vien/')); ?>">Việc làm & cơ hội sinh viên</a></li>
+        <li><a href="<?php echo esc_url(home_url('/category/di-chuyen-tien-ich/')); ?>">Di chuyển & tiện ích</a></li>
+        <li><a href="<?php echo esc_url(home_url('/category/doi-song-sinh-vien/')); ?>">Đời sống sinh viên</a></li>
+        <li><a href="<?php echo esc_url(home_url('/category/hoc-tap-phat-trien-ky-nang/')); ?>">Học tập & phát triển kỹ năng</a></li>
+        <li><a href="<?php echo esc_url(home_url('/category/viec-lam-co-hoi-sinh-vien/')); ?>">Việc làm & cơ hội sinh viên</a></li>
     </ul>
 </div>
 
@@ -262,10 +262,10 @@ $copyright       = str_replace('%year%', date_i18n('Y'), $options['footer_copyri
              <div class="hcmv-footer-col">
                 <h4>HỖ TRỢ</h4>
                 <ul class="hcmv-footer-menu">
-                    <li><a href="<?php echo esc_url(home_url('/index.php/gioi-thieu/')); ?>">Giới thiệu</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/index.php/lien-he/')); ?>">Liên hệ</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/index.php/chinh-sach-bao-mat-2/')); ?>">Chính sách bảo mật</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/index.php/dieu-khoan-su-dung/')); ?>">Điều khoản sử dụng</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/gioi-thieu/')); ?>">Giới thiệu</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/lien-he/')); ?>">Liên hệ</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/chinh-sach-bao-mat/')); ?>">Chính sách bảo mật</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/dieu-khoan-su-dung/')); ?>">Điều khoản sử dụng</a></li>
                 </ul>
             </div>
 

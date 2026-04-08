@@ -185,7 +185,7 @@ while (have_posts()) : the_post();
                             <div class="hcmv-post-share">
                                 <span><?php echo esc_html($post_options['share_label']); ?></span>
                                 <a class="is-facebook" href="<?php echo esc_url($share_facebook); ?>" target="_blank" rel="noopener noreferrer">f</a>
-                                <a class="is-zalo" href="<?php echo esc_url($share_zalo); ?>" target="_blank" rel="noopener noreferrer">Zalo</a>
+                                <a class="is-zalo" href="<?php echo esc_url($share_zalo); ?>" target="_blank" rel="nofollow noopener noreferrer">Zalo</a>
                             </div>
                         </div>
 
@@ -247,10 +247,10 @@ while (have_posts()) : the_post();
              <div class="hcmv-footer-col">
     <h4>KHÁM PHÁ</h4>
     <ul class="hcmv-footer-menu">
-        <li><a href="<?php echo esc_url(home_url('/index.php/category/di-chuyen-tien-ich/')); ?>">Di chuyển & tiện ích</a></li>
-        <li><a href="<?php echo esc_url(home_url('/index.php/category/doi-song-sinh-vien/')); ?>">Đời sống sinh viên</a></li>
-        <li><a href="<?php echo esc_url(home_url('/index.php/category/hoc-tap-phat-trien-ky-nang/')); ?>">Học tập & phát triển kỹ năng</a></li>
-        <li><a href="<?php echo esc_url(home_url('/index.php/category/viec-lam-co-hoi-sinh-vien/')); ?>">Việc làm & cơ hội sinh viên</a></li>
+        <li><a href="<?php echo esc_url(home_url('/category/di-chuyen-tien-ich/')); ?>">Di chuyển & tiện ích</a></li>
+        <li><a href="<?php echo esc_url(home_url('/category/doi-song-sinh-vien/')); ?>">Đời sống sinh viên</a></li>
+        <li><a href="<?php echo esc_url(home_url('/category/hoc-tap-phat-trien-ky-nang/')); ?>">Học tập & phát triển kỹ năng</a></li>
+        <li><a href="<?php echo esc_url(home_url('/category/viec-lam-co-hoi-sinh-vien/')); ?>">Việc làm & cơ hội sinh viên</a></li>
     </ul>
 </div>
 
@@ -270,10 +270,10 @@ while (have_posts()) : the_post();
              <div class="hcmv-footer-col">
                 <h4>HỖ TRỢ</h4>
                 <ul class="hcmv-footer-menu">
-                    <li><a href="<?php echo esc_url(home_url('/index.php/gioi-thieu/')); ?>">Giới thiệu</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/index.php/lien-he/')); ?>">Liên hệ</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/index.php/chinh-sach-bao-mat-2/')); ?>">Chính sách bảo mật</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/index.php/dieu-khoan-su-dung/')); ?>">Điều khoản sử dụng</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/gioi-thieu/')); ?>">Giới thiệu</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/lien-he/')); ?>">Liên hệ</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/chinh-sach-bao-mat/')); ?>">Chính sách bảo mật</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/dieu-khoan-su-dung/')); ?>">Điều khoản sử dụng</a></li>
                 </ul>
             </div>
             <!-- Cột 5: Newsletter -->
