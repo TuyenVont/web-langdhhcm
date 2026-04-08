@@ -188,45 +188,93 @@ add_action('after_setup_theme', function () {
 });
 
 /**
- * SEO title mapping — gom tất cả custom title vào 1 chỗ.
- * Dùng filter document_title_parts để không hardcode <title> trong template.
+ * SEO title mapping cho các page hardcode.
+ * Dùng pre_get_document_title + rank_math/frontend/title để override mạnh hơn
+ * khi theme/plugin SEO đang đè lại title mặc định.
  */
-add_filter('document_title_parts', function ($title) {
-    $site_name = get_bloginfo('name');
-
-    // Map theo slug/path
-    $uri = isset($_SERVER['REQUEST_URI']) ? strtok(sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])), '?') : '';
-    $uri = rtrim($uri, '/');
-
-    $map = array(
-        '/chinh-sach-bao-mat' => array(
-            'title'   => 'Chính sách bảo mật Làng Đại học HCM',
-            'tagline' => '',
+function hcmv_get_custom_seo_pages() {
+    return array(
+        'chinh-sach-bao-mat' => array(
+            'title'       => 'Chính sách bảo mật Làng Đại học HCM - Bảo vệ thông tin người dùng',
+            'description' => 'Tìm hiểu chính sách bảo mật của Làng Đại học HCM, cách chúng tôi thu thập và bảo vệ thông tin người dùng.',
         ),
-        '/dieu-khoan-su-dung' => array(
-            'title'   => 'Điều khoản sử dụng Làng Đại học HCM',
-            'tagline' => '',
+        'lien-he' => array(
+            'title'       => 'Liên hệ Làng Đại học HCM - Hỗ trợ & hợp tác',
+            'description' => 'Liên hệ với Làng Đại học HCM để góp ý nội dung, hợp tác hoặc nhận hỗ trợ thông tin dành cho sinh viên.',
         ),
-        '/lien-he' => array(
-            'title' => 'Liên hệ Làng Đại học HCM Hỗ trợ & hợp tác',
+        'dieu-khoan-su-dung' => array(
+            'title'       => 'Điều khoản sử dụng Làng Đại học HCM - Quy định & điều kiện',
+            'description' => 'Tìm hiểu điều khoản sử dụng website Làng Đại học HCM dành cho sinh viên khi truy cập và sử dụng nội dung.',
         ),
-        '/gioi-thieu' => array(
-            'title' => 'Về chúng tôi Cẩm nang Làng Đại học HCM cho sinh viên',
+        'gioi-thieu' => array(
+            'title'       => 'Giới thiệu Làng Đại học HCM - Về chúng tôi',
+            'description' => 'Tìm hiểu về Làng Đại học HCM – nền tảng chia sẻ cẩm nang sinh viên về ăn ở, học tập và đời sống tại khu đô thị đại học.',
         ),
     );
+}
 
-    if (isset($map[$uri])) {
-        $title['title'] = $map[$uri]['title'];
-        if (!empty($map[$uri]['tagline'])) {
-            $title['tagline'] = $map[$uri]['tagline'];
-        } else {
-            unset($title['tagline']);
-        }
-        unset($title['site']);
+function hcmv_get_current_custom_seo_page() {
+    if ( ! is_page() ) {
+        return false;
     }
 
-    return $title;
-});
+    $pages = hcmv_get_custom_seo_pages();
+
+    foreach ( $pages as $slug => $seo ) {
+        if ( is_page( $slug ) ) {
+            return $seo;
+        }
+    }
+
+    return false;
+}
+
+/**
+ * Custom title cho WordPress core
+ */
+add_filter( 'pre_get_document_title', function( $title ) {
+    $seo = hcmv_get_current_custom_seo_page();
+    return ( $seo && ! empty( $seo['title'] ) ) ? $seo['title'] : $title;
+}, 999 );
+
+add_filter( 'document_title_parts', function( $parts ) {
+    $seo = hcmv_get_current_custom_seo_page();
+
+    if ( $seo && ! empty( $seo['title'] ) ) {
+        $parts['title'] = $seo['title'];
+        unset( $parts['site'], $parts['tagline'] );
+    }
+
+    return $parts;
+}, 999 );
+
+/**
+ * Custom title + description cho Rank Math
+ */
+add_filter( 'rank_math/frontend/title', function( $title ) {
+    $seo = hcmv_get_current_custom_seo_page();
+    return ( $seo && ! empty( $seo['title'] ) ) ? $seo['title'] : $title;
+}, 999 );
+
+add_filter( 'rank_math/frontend/description', function( $description ) {
+    $seo = hcmv_get_current_custom_seo_page();
+    return ( $seo && ! empty( $seo['description'] ) ) ? $seo['description'] : $description;
+}, 999 );
+
+/**
+ * Fallback meta description nếu sau này tắt Rank Math
+ */
+add_action( 'wp_head', function() {
+    if ( defined( 'RANK_MATH_VERSION' ) ) {
+        return;
+    }
+
+    $seo = hcmv_get_current_custom_seo_page();
+
+    if ( $seo && ! empty( $seo['description'] ) ) {
+        echo '<meta name="description" content="' . esc_attr( $seo['description'] ) . '">' . "\n";
+    }
+}, 5 );
 
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('blocksy-parent-style', get_template_directory_uri() . '/style.css', array(), wp_get_theme(get_template())->get('Version'));
@@ -1450,7 +1498,7 @@ function hcmv_render_email_lead_form($atts) {
                     </form>
                     <?php else : ?>
                         <?php echo $form_html; // phpcs:ignore WordPress.Security.EscapeOutput ?>
-                    <?php endif; ?>
+                    <?php endif; ?>s
                     <p class="hcmv-lead-form-privacy">Chúng tôi sẽ bảo đảm thông tin của bạn được bảo mật.</p>
                     <p class="hcmv-lead-form-note">Bằng việc đăng ký, bạn đồng ý nhận email cập nhật từ HCMV.</p>
                 </div>
