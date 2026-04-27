@@ -199,28 +199,31 @@ while (have_posts()) : the_post();
 
                     <aside class="hcmv-post-sidebar">
 
-                        <!-- Khối 1: Xem nhiều nhất -->
+                        <!-- Khối 1: Bài viết liên quan -->
+                        <?php $related = hcmv_child_get_related_posts(get_the_ID(), 3); ?>
+                        <?php if (!empty($related)) : ?>
                         <div class="hcmv-side-card">
-                            <h3><?php echo esc_html($post_options['sidebar_recent_title']); ?></h3>
-                            <div class="hcmv-side-list">
-                                <?php foreach ($sidebar_posts as $item) : ?>
-                                    <a class="hcmv-side-item" href="<?php echo esc_url($item['url']); ?>">
-                                        <small><?php echo esc_html($item['category']); ?></small>
-                                        <strong><?php echo esc_html($item['title']); ?></strong>
-                                    </a>
+                            <h3>Bài viết liên quan</h3>
+                            <div class="hcmv-sitem-list">
+                                <?php foreach ($related as $item) : ?>
+                                    <?php echo hcmv_child_sidebar_item_html($item['id'], $item['title'], $item['url'], $item['category']); // phpcs:ignore ?>
                                 <?php endforeach; ?>
                             </div>
                         </div>
+                        <?php endif; ?>
 
-                        <!-- Khối 2: Bài viết liên quan -->
+                        <!-- Khối 2: Xem nhiều nhất -->
+                        <?php $most_viewed = hcmv_child_get_most_viewed_posts(get_the_ID(), 3); ?>
+                        <?php if (!empty($most_viewed)) : ?>
                         <div class="hcmv-side-card">
-                            <?php echo do_shortcode('[hcmv_related_posts]'); ?>
+                            <h3>Xem nhiều nhất</h3>
+                            <div class="hcmv-sitem-list">
+                                <?php foreach ($most_viewed as $item) : ?>
+                                    <?php echo hcmv_child_sidebar_item_html($item['id'], $item['title'], $item['url'], $item['category']); // phpcs:ignore ?>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
-
-                        <!-- Khối 3: Chủ đề đang Hot -->
-                        <div class="hcmv-side-card hcmv-hot-card">
-                            <?php hcmv_display_hot_topics(); ?>
-                        </div>
+                        <?php endif; ?>
 
                     </aside>
                 </div>

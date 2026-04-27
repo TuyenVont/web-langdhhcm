@@ -946,6 +946,117 @@ function hcmv_child_get_sidebar_posts($exclude_post_id = 0) {
     return $items;
 }
 
+/**
+ * Lấy thumbnail ID cho sidebar: featured → ảnh đầu content → null
+ */
+function hcmv_child_sidebar_thumb_id($post_id) {
+    $thumb_id = get_post_thumbnail_id($post_id);
+    if ($thumb_id) {
+        return $thumb_id;
+    }
+    // Fallback: ảnh đầu tiên trong content
+    $post    = get_post($post_id);
+    $content = $post ? $post->post_content : '';
+    if (preg_match('/<img[^>]+src=["\']([^"\']+)["\']/', $content, $m)) {
+        return $m[1]; // trả về URL string nếu không có attachment ID
+    }
+    return null;
+}
+
+/**
+ * Render 1 item sidebar dạng thumbnail + category + title
+ */
+function hcmv_child_sidebar_item_html($post_id, $title, $url, $category) {
+    if (!$url) return '';
+    $thumb_id = hcmv_child_sidebar_thumb_id($post_id);
+    $img_html = '';
+    if (is_int($thumb_id) && $thumb_id > 0) {
+        $img_html = wp_get_attachment_image($thumb_id, array(86, 64), false, array(
+            'class'   => 'hcmv-sitem-img',
+            'loading' => 'lazy',
+            'alt'     => esc_attr($title),
+        ));
+    } elseif (is_string($thumb_id) && $thumb_id) {
+        $img_html = '<img class="hcmv-sitem-img" src="' . esc_url($thumb_id) . '" alt="' . esc_attr($title) . '" loading="lazy" width="86" height="64">';
+    } else {
+        $img_html = '<div class="hcmv-sitem-img hcmv-sitem-placeholder"></div>';
+    }
+    return '<a class="hcmv-sitem" href="' . esc_url($url) . '">'
+        . '<div class="hcmv-sitem-thumb">' . $img_html . '</div>'
+        . '<div class="hcmv-sitem-body">'
+        . '<span class="hcmv-sitem-cat">' . esc_html($category) . '</span>'
+        . '<span class="hcmv-sitem-title">' . esc_html($title) . '</span>'
+        . '</div>'
+        . '</a>';
+}
+
+/**
+ * Lấy bài viết liên quan (cùng category, loại trừ bài hiện tại), tối đa 3
+ */
+function hcmv_child_get_related_posts($post_id, $limit = 3) {
+    $cat_ids = wp_get_post_categories($post_id);
+    if (empty($cat_ids)) return array();
+
+    $query = new WP_Query(array(
+        'post_type'           => 'post',
+        'posts_per_page'      => $limit,
+        'post_status'         => 'publish',
+        'post__not_in'        => array($post_id),
+        'category__in'        => $cat_ids,
+        'ignore_sticky_posts' => true,
+        'orderby'             => 'date',
+        'order'               => 'DESC',
+    ));
+
+    $items = array();
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            $cats    = get_the_category();
+            $items[] = array(
+                'id'       => get_the_ID(),
+                'title'    => get_the_title(),
+                'url'      => get_permalink(),
+                'category' => !empty($cats) ? $cats[0]->name : 'Tin mới',
+            );
+        }
+        wp_reset_postdata();
+    }
+    return $items;
+}
+
+/**
+ * Lấy bài xem nhiều nhất, tối đa 3
+ */
+function hcmv_child_get_most_viewed_posts($exclude_post_id = 0, $limit = 3) {
+    $query = new WP_Query(array(
+        'post_type'           => 'post',
+        'posts_per_page'      => $limit,
+        'post_status'         => 'publish',
+        'post__not_in'        => array($exclude_post_id),
+        'ignore_sticky_posts' => true,
+        'meta_key'            => 'langd_post_views',
+        'orderby'             => 'meta_value_num',
+        'order'               => 'DESC',
+    ));
+
+    $items = array();
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            $cats    = get_the_category();
+            $items[] = array(
+                'id'       => get_the_ID(),
+                'title'    => get_the_title(),
+                'url'      => get_permalink(),
+                'category' => !empty($cats) ? $cats[0]->name : 'Tin mới',
+            );
+        }
+        wp_reset_postdata();
+    }
+    return $items;
+}
+
 function hcmv_child_calculate_reading_time($content) {
     $word_count = str_word_count(wp_strip_all_tags($content));
     $minutes    = (int) max(1, ceil($word_count / 220));
