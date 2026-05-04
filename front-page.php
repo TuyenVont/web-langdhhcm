@@ -212,10 +212,65 @@ $copyright       = str_replace('%year%', date_i18n('Y'), $options['footer_copyri
                 </div>
             </section>
 
-    <section class="hcmv-newsletter">
-    <div class="hcmv-container">
-        <?php echo do_shortcode('[hcmv_email_lead_form]'); ?>
+<section class="hcmv-newsletter">
+  <div class="hcmv-container">
+
+    <div class="hcmv-newsletter-custom">
+      <div class="hcmv-newsletter-left">
+        <span class="hcmv-newsletter-badge">Miễn phí • Không spam</span>
+
+        <h2>Nhận tin mới dành riêng cho sinh viên Làng Đại Học</h2>
+
+        <p>
+          Đăng ký email để nhận cập nhật về chỗ ở, điện nước, quán ăn,
+          việc làm thêm và các thông báo hữu ích.
+        </p>
+
+        <ul>
+          <li>Nhận tin mới nhanh hơn</li>
+          <li>Ưu tiên nội dung hữu ích cho sinh viên</li>
+          <li>Hủy đăng ký bất cứ lúc nào</li>
+        </ul>
+      </div>
+
+      <div class="hcmv-newsletter-card">
+        <p class="hcmv-newsletter-card-label">Nhận cập nhật miễn phí</p>
+
+        <h3>Xin chào người đẹp 👋</h3>
+
+        <p>
+          Chào mừng bạn đến với "Cẩm nang Làng Đại Học".
+        </p>
+
+        <p>
+          Đăng ký bản tin của chúng tôi để được cập nhật những thông tin mới nhất từ Làng Đại Học!
+        </p>
+
+        <form id="hcmv-google-sheet-newsletter-form">
+          <input
+            type="email"
+            id="hcmv-newsletter-email"
+            name="email"
+            placeholder="Địa chỉ email của bạn *"
+            required
+          >
+
+          <button type="submit" id="hcmv-newsletter-submit">
+            Gửi
+          </button>
+        </form>
+
+        <p id="hcmv-newsletter-message" class="hcmv-newsletter-message">
+          Chúng tôi sẽ bảo đảm thông tin của bạn được bảo mật.
+        </p>
+
+        <p class="hcmv-newsletter-note">
+          Bằng việc đăng ký, bạn đồng ý nhận email cập nhật từ HCMV.
+        </p>
+      </div>
     </div>
+
+  </div>
 </section>
         </main>
 
@@ -254,7 +309,7 @@ $copyright       = str_replace('%year%', date_i18n('Y'), $options['footer_copyri
                     <li><a href="<?php echo esc_url(home_url('/chi-phi-sinh-hoat')); ?>">Chi phí sinh hoạt</a></li>
                     <li><a href="<?php echo esc_url(home_url('/review-quan-an')); ?>">Review quán ăn</a></li>
                     <li><a href="<?php echo esc_url(home_url('/ky-tuc-xa')); ?>">Ký túc xá</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/checklist-nhap-hoc')); ?>">Checklist nhập học</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/checklist-nhap-hoc-tan-sinh-vien/')); ?>">Checklist nhập học</a></li>
                 </ul>
             </div>
 
@@ -329,6 +384,56 @@ $copyright       = str_replace('%year%', date_i18n('Y'), $options['footer_copyri
 </footer>
     </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbynl2qFp-x_76oewKpt0WPbjhzJU5LXQyGDAchBjVyNHS3FPsZ_TZK1tRRX68s5hMaq/exec';
+
+  const form = document.getElementById('hcmv-google-sheet-newsletter-form');
+  const emailInput = document.getElementById('hcmv-newsletter-email');
+  const message = document.getElementById('hcmv-newsletter-message');
+  const submitButton = document.getElementById('hcmv-newsletter-submit');
+
+  if (!form || !emailInput || !message || !submitButton) {
+    return;
+  }
+
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    const email = emailInput.value.trim();
+
+    if (!email) {
+      message.textContent = 'Vui lòng nhập email.';
+      return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = 'Đang gửi...';
+    message.textContent = 'Đang gửi thông tin đăng ký...';
+
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('source', 'Website homepage newsletter');
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'
+      });
+
+      message.textContent = 'Đăng ký thành công! Vui lòng kiểm tra email của bạn.';
+      form.reset();
+
+    } catch (error) {
+      message.textContent = 'Có lỗi xảy ra. Vui lòng thử lại sau.';
+    }
+
+    submitButton.disabled = false;
+    submitButton.textContent = 'Gửi';
+  });
+});
+</script>
 <?php wp_footer(); ?>
 </body>
 </html>

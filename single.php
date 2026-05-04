@@ -47,9 +47,9 @@ while (have_posts()) : the_post();
         <header class="hcmv-topbar">
             <div class="hcmv-container hcmv-topbar-inner">
                 <a class="hcmv-brand-wrap" href="<?php echo esc_url($home_url); ?>">
-                    <?php if ($logo_url) : ?>
-                        <span class="hcmv-brand-logo"><img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr($site_name); ?>"></span>
-                    <?php endif; ?>
+                    <span class="hcmv-brand-logo">
+						<img src="https://langdhhcm.info.vn/wp-content/uploads/2026/04/cropped-L-Photoroom.png" alt="<?php echo esc_attr($site_name); ?>">
+					</span>
                     <span class="hcmv-brand"><?php echo esc_html($site_name); ?></span>
                 </a>
 
@@ -240,32 +240,32 @@ while (have_posts()) : the_post();
                 <div class="hcmv-footer-brand">
                     <?php echo esc_html(get_bloginfo('name')); ?>
                 </div>
-                <p>
-                    Cẩm nang sống, học tập & ăn chơi dành cho sinh viên tại Làng Đại học ĐHQG-HCM.
-                    Khám phá mọi thứ bạn cần từ ăn uống, nhà trọ đến kinh nghiệm học tập.
+                <p>Cẩm nang sống, học tập & ăn chơi dành cho sinh viên tại Làng Đại học ĐHQG-HCM. Khám phá mọi thứ bạn cần từ ăn uống, nhà trọ đến kinh nghiệm học tập.<br>Website chia sẻ thông tin Làng Đại học Thủ Đức dành cho sinh viên.<br>
+Email: nhom3.ec204@gmail.com<br>
+SĐT: 0798588053<br>
+Địa chỉ: TP.HCM
                 </p>
             </div>
-
             <!-- Cột 2: Khám phá -->
              <div class="hcmv-footer-col">
     <h4>KHÁM PHÁ</h4>
     <ul class="hcmv-footer-menu">
-        <li><a href="<?php echo esc_url(home_url('/category/di-chuyen-tien-ich/')); ?>">Di chuyển & tiện ích</a></li>
-        <li><a href="<?php echo esc_url(home_url('/category/doi-song-sinh-vien/')); ?>">Đời sống sinh viên</a></li>
-        <li><a href="<?php echo esc_url(home_url('/category/hoc-tap-phat-trien-ky-nang/')); ?>">Học tập & phát triển kỹ năng</a></li>
-        <li><a href="<?php echo esc_url(home_url('/category/viec-lam-co-hoi-sinh-vien/')); ?>">Việc làm & cơ hội sinh viên</a></li>
-    </ul>
+    <li><a href="<?php echo esc_url(home_url('/category/di-chuyen-tien-ich-lang-dai-hoc/')); ?>">Di chuyển & tiện ích</a></li>
+    <li><a href="<?php echo esc_url(home_url('/category/doi-song-sinh-vien-lang-dai-hoc/')); ?>">Đời sống sinh viên</a></li>
+    <li><a href="<?php echo esc_url(home_url('/category/hoc-tap-phat-trien-ky-nang/')); ?>">Học tập & phát triển kỹ năng</a></li>
+    <li><a href="<?php echo esc_url(home_url('/category/viec-lam-co-hoi-sinh-vien/')); ?>">Việc làm & cơ hội sinh viên</a></li>
+</ul>
 </div>
 
             <!-- Cột 3: Cẩm nang -->
             <div class="hcmv-footer-col">
                 <h4>CẨM NANG</h4>
                 <ul class="hcmv-footer-menu">
-                    <li><a href="<?php echo esc_url(home_url('/tan-sinh-vien')); ?>">Tân sinh viên cần biết</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/chi-phi-sinh-hoat')); ?>">Chi phí sinh hoạt</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/review-quan-an')); ?>">Review quán ăn</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/ky-tuc-xa')); ?>">Ký túc xá</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/checklist-nhap-hoc')); ?>">Checklist nhập học</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/category/di-chuyen-tien-ich-lang-dai-hoc/')); ?>">Tân sinh viên cần biết</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/category/viec-lam-co-hoi-sinh-vien/')); ?>">Chi phí sinh hoạt</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/category/doi-song-sinh-vien-lang-dai-hoc/')); ?>">Review quán ăn</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/category/doi-song-sinh-vien-lang-dai-hoc/')); ?>">Ký túc xá</a></li>
+                     <li><a href="<?php echo esc_url(home_url('/checklist-nhap-hoc-tan-sinh-vien/')); ?>">Checklist nhập học</a></li>
                 </ul>
             </div>
 
@@ -312,16 +312,21 @@ while (have_posts()) : the_post();
                         </button>
                     </div>
                 </form>
+				<!-- sitemap				 -->
+				<div class = "footer-sitemap" style="margin-top:16px; font-size:13px; text-align:center;">
+					<a href="https://langdhhcm.info.vn/sitemap_index.xml" class="hcmv-sitemap">Sitemap.</a>
+					<a href="https://langdhhcm.info.vn/gioi-thieu/" class="hcmv-sitemap">Giới thiệu</a>
+				</div>
 
                 <!-- Social -->
 				<div class="hcmv-footer-socials">
-					<a href="#" class="hcmv-social-icon" aria-label="Facebook">
+					<a href="https://www.facebook.com/profile.php?id=61575666167762" class="hcmv-social-icon" aria-label="Facebook">
 						<i class="fab fa-facebook-f"></i>
 					</a>
 					<a href="#" class="hcmv-social-icon" aria-label="TikTok">
 						<i class="fab fa-tiktok"></i>
 					</a>
-					<a href="#" class="hcmv-social-icon" aria-label="YouTube">
+					<a href="https://www.youtube.com/@C%E1%BA%A9mnangL%C3%A0ng%C4%90%E1%BA%A1ih%E1%BB%8Dc" class="hcmv-social-icon" aria-label="YouTube">
 						<i class="fab fa-youtube"></i>
 					</a>
 				</div>
