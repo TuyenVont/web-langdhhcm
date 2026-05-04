@@ -22,8 +22,8 @@ if (is_category()) {
     $current_cat = get_query_var('category_name') ?: '';
 }
 
-// Pagination: ưu tiên WP query var 'paged', sau đó $_GET['p']
-$paged    = max(1, (int) get_query_var('paged') ?: (isset($_GET['p']) ? absint($_GET['p']) : 1));
+// Pagination: đọc page_num để tránh xung đột với post ID (?p=)
+$paged    = max(1, isset($_GET['page_num']) ? absint($_GET['page_num']) : 1);
 $per_page = 12;
 
 // Search query
@@ -127,12 +127,12 @@ if ($search_q) {
         <?php if (!empty($all_cats)) : ?>
         <div class="hcmv-archive-filters" role="navigation" aria-label="Lọc theo chủ đề">
             <a class="hcmv-filter-pill <?php echo !$current_cat ? 'is-active' : ''; ?>"
-               href="<?php echo esc_url(hcmv_child_posts_url()); ?>">
+               href="<?php echo esc_url(home_url('/tat-ca-bai-viet/')); ?>">
                 Tất cả
             </a>
             <?php foreach ($all_cats as $cat) : ?>
                 <a class="hcmv-filter-pill <?php echo $current_cat === $cat->slug ? 'is-active' : ''; ?>"
-                   href="<?php echo esc_url(add_query_arg('cat', $cat->slug, hcmv_child_posts_url())); ?>">
+                   href="<?php echo esc_url(add_query_arg('cat', $cat->slug, home_url('/tat-ca-bai-viet/'))); ?>">
                     <?php echo esc_html($cat->name); ?>
                     <span class="hcmv-filter-count"><?php echo esc_html($cat->count); ?></span>
                 </a>
@@ -150,17 +150,23 @@ if ($search_q) {
                 $post_id    = get_the_ID();
                 $categories = get_the_category($post_id);
                 $cat_name   = !empty($categories) ? $categories[0]->name : '';
+                $img_url    = hcmv_child_get_post_image($post_id, 'large');
                 $thumb_id   = get_post_thumbnail_id($post_id);
-                $eager      = $i < 3; // 3 ảnh đầu eager
+                $eager      = $i < 3;
             ?>
             <a class="hcmv-post" href="<?php the_permalink(); ?>">
                 <div class="hcmv-post-media">
                     <?php if ($thumb_id) : ?>
                         <?php echo wp_get_attachment_image($thumb_id, 'large', false, array(
-                            'alt'          => get_the_title(),
-                            'loading'      => $eager ? 'eager' : 'lazy',
+                            'alt'           => get_the_title(),
+                            'loading'       => $eager ? 'eager' : 'lazy',
                             'fetchpriority' => $eager ? 'high' : 'auto',
                         )); // phpcs:ignore ?>
+                    <?php elseif ($img_url) : ?>
+                        <img src="<?php echo esc_url($img_url); ?>"
+                             alt="<?php echo esc_attr(get_the_title()); ?>"
+                             loading="<?php echo $eager ? 'eager' : 'lazy'; ?>"
+                             fetchpriority="<?php echo $eager ? 'high' : 'auto'; ?>">
                     <?php else : ?>
                         <div class="hcmv-post-no-img"></div>
                     <?php endif; ?>
@@ -188,12 +194,14 @@ if ($search_q) {
         <?php if ($max_pages > 1) : ?>
         <nav class="hcmv-pagination" aria-label="Phân trang">
             <?php
-            $base_url = $current_cat
-                ? add_query_arg('cat', $current_cat, hcmv_child_posts_url())
-                : hcmv_child_posts_url();
+            // Base URL luôn là /tat-ca-bai-viet/, không dùng hcmv_child_posts_url() để tránh /blog/
+            $base_url = home_url('/tat-ca-bai-viet/');
+            if ($current_cat) {
+                $base_url = add_query_arg('cat', $current_cat, $base_url);
+            }
 
             for ($p = 1; $p <= $max_pages; $p++) :
-                $url = add_query_arg('p', $p, $base_url);
+                $url = $p > 1 ? add_query_arg('page_num', $p, $base_url) : $base_url;
             ?>
                 <a class="hcmv-page-btn <?php echo $p === $paged ? 'is-active' : ''; ?>"
                    href="<?php echo esc_url($url); ?>"
