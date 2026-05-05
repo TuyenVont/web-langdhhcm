@@ -1630,3 +1630,51 @@ function hcmv_enqueue_lead_form_assets() {
         $theme_version
     );
 }
+
+function hcmv_enqueue_support_about_styles() {
+    if (is_page('gioi-thieu')) {
+        wp_enqueue_style(
+            'hcmv-gioi-thieu-style',
+            get_stylesheet_directory_uri() . '/assets/css/gioi-thieu.css',
+            array(),
+            filemtime(get_stylesheet_directory() . '/assets/css/gioi-thieu.css')
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'hcmv_enqueue_support_about_styles', 99);
+
+function hcmv_enqueue_contact_page_styles() {
+    if (is_page('lien-he')) {
+        wp_enqueue_style(
+            'hcmv-lien-he-style',
+            get_stylesheet_directory_uri() . '/assets/css/lien-he.css',
+            array(),
+            filemtime(get_stylesheet_directory() . '/assets/css/lien-he.css')
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'hcmv_enqueue_contact_page_styles', 99);
+
+function hcmv_enqueue_privacy_page_styles() {
+    if (is_page('chinh-sach-bao-mat')) {
+        wp_enqueue_style(
+            'hcmv-chinh-sach-bao-mat-style',
+            get_stylesheet_directory_uri() . '/assets/css/chinh-sach-bao-mat.css',
+            array(),
+            filemtime(get_stylesheet_directory() . '/assets/css/chinh-sach-bao-mat.css')
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'hcmv_enqueue_privacy_page_styles', 99);
+
+function hcmv_enqueue_terms_page_styles() {
+    if (is_page('dieu-khoan-su-dung')) {
+        wp_enqueue_style(
+            'hcmv-dieu-khoan-su-dung-style',
+            get_stylesheet_directory_uri() . '/assets/css/dieu-khoan-su-dung.css',
+            array(),
+            filemtime(get_stylesheet_directory() . '/assets/css/dieu-khoan-su-dung.css')
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'hcmv_enqueue_terms_page_styles', 99);
